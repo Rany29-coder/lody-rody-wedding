@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  /* Luxurious ivory + blush + gold palette */
+  --background: #fbf7f1; /* warm ivory */
+  --foreground: #3a3330; /* soft espresso */
+  --blush: #e7c9c2;
+  --blush-soft: #f3e3df;
+  --gold: #b89455;
+  --gold-soft: #d8bd85;
+  --sage: #8a9a86;
+  --ink: #2c2724;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-blush: var(--blush);
+  --color-blush-soft: var(--blush-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-sage: var(--sage);
+  --color-ink: var(--ink);
+
+  --font-serif: var(--font-serif);
+  --font-script: var(--font-script);
+  --font-sans: var(--font-sans);
+}
+
+body {
+  background:
+    radial-gradient(120% 90% at 50% -10%, #fffdfb 0%, var(--background) 45%, #f3e9de 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-serif), Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin shimmering gold divider */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-soft) 20%,
+    var(--gold) 50%,
+    var(--gold-soft) 80%,
+    transparent
+  );
+}
+
+/* Gentle pulse for the "tap to open" cue */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.animate-breathe { animation: breathe 2.4s ease-in-out infinite; }
+
+/* Falling petals */
+@keyframes petal-fall {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { transform: translateY(110vh) translateX(var(--drift, 40px)) rotate(360deg); opacity: 0; }
+}
+.petal {
+  position: absolute;
+  top: 0;
+  border-radius: 60% 20% 60% 20%;
+  background: linear-gradient(135deg, var(--blush-soft), var(--blush));
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.5);
+  animation: petal-fall linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Soft entrance fade-up used across revealed content */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-breathe,
+  .petal { animation: none; }
+}
