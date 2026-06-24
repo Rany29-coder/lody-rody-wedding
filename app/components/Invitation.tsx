@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { wedding } from "../wedding-config";
 import Countdown from "./Countdown";
+import Monogram from "./Monogram";
 
 export default function Invitation() {
   const [open, setOpen] = useState(false);
@@ -95,6 +96,10 @@ function Card() {
         <Flourish className="right-4 top-4 -scale-x-100" />
         <Flourish className="bottom-4 left-4 -scale-y-100" />
         <Flourish className="bottom-4 right-4 -scale-100" />
+
+        <Stagger delay={0.1}>
+          <Monogram className="mb-7" />
+        </Stagger>
 
         <Stagger delay={0.15}>
           <p className="font-sans text-[11px] uppercase tracking-[0.4em] text-gold">

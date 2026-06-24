@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Deterministic pseudo-random so server/client markup matches (no hydration drift)
 function seeded(i: number, salt: number) {
@@ -9,6 +9,11 @@ function seeded(i: number, salt: number) {
 }
 
 export default function Petals({ count = 14 }: { count?: number }) {
+  // Decorative-only. Render client-side after mount to avoid SSR hydration
+  // mismatches (Math.sin differs by ~1 ULP between Node and the browser).
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const petals = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => {
@@ -24,6 +29,8 @@ export default function Petals({ count = 14 }: { count?: number }) {
       }),
     [count]
   );
+
+  if (!mounted) return null;
 
   return (
     <div

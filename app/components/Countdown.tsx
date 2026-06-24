@@ -21,14 +21,35 @@ const FIELDS: { key: "days" | "hours" | "minutes" | "seconds"; label: string }[]
 
 export default function Countdown({ date }: { date: string }) {
   const target = new Date(date).getTime();
-  const [t, setT] = useState(() => diff(target));
+  // Start null so server-rendered HTML and the first client render match
+  // (the live value depends on Date.now(), which differs build-time vs runtime).
+  const [t, setT] = useState<ReturnType<typeof diff> | null>(null);
 
   useEffect(() => {
+    setT(diff(target));
     const id = setInterval(() => setT(diff(target)), 1000);
     return () => clearInterval(id);
   }, [target]);
 
   if (Number.isNaN(target)) return null;
+
+  // Structurally-identical placeholder until mounted (no layout shift)
+  if (!t) {
+    return (
+      <div className="flex items-start justify-center gap-3 sm:gap-5">
+        {FIELDS.map(({ key, label }) => (
+          <div key={key} className="flex flex-col items-center">
+            <span className="font-serif text-3xl sm:text-5xl font-light tabular-nums text-ink">
+              --
+            </span>
+            <span className="mt-1 font-sans text-[10px] sm:text-xs uppercase tracking-[0.25em] text-gold">
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   if (t.done) {
     return (
