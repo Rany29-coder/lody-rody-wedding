@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Great_Vibes, Jost } from "next/font/google";
+import { Cormorant_Garamond, Pinyon_Script, Cinzel } from "next/font/google";
 import "./globals.css";
 
-// Elegant serif for headings + body — luxurious, editorial feel
+// Refined serif for body, dates, monogram — luxurious editorial feel
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
   subsets: ["latin"],
@@ -10,18 +10,18 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
-// Flowing script — for the couple's names, the "cute" romantic touch
-const greatVibes = Great_Vibes({
+// Elegant calligraphy for the couple's names and accents
+const pinyon = Pinyon_Script({
   variable: "--font-script",
   subsets: ["latin"],
   weight: ["400"],
 });
 
-// Clean modern sans — for small UI labels, dates, buttons
-const jost = Jost({
+// Engraved Roman capitals for labels + buttons — high-end wedding feel
+const cinzel = Cinzel({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${greatVibes.variable} ${jost.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${pinyon.variable} ${cinzel.variable} h-full antialiased`}
     >
       <body className="min-h-full">{children}</body>
     </html>
