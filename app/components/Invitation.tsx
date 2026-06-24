@@ -68,7 +68,7 @@ function Envelope({ onOpen }: { onOpen: () => void }) {
 
         {/* Wax seal */}
         <div className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-gold-soft to-gold text-background shadow-lg ring-2 ring-[#fffdfb]/60">
-          <span className="font-script text-2xl leading-none">L&amp;R</span>
+          <span className="font-script text-2xl leading-none">R&amp;L</span>
         </div>
       </motion.div>
 
@@ -104,7 +104,7 @@ function Card() {
 
         <Stagger delay={0.3}>
           <h1 className="mt-6 font-script text-6xl leading-none text-ink sm:text-7xl">
-            {wedding.bride}
+            {wedding.groom}
           </h1>
         </Stagger>
 
@@ -118,7 +118,7 @@ function Card() {
 
         <Stagger delay={0.54}>
           <h1 className="font-script text-6xl leading-none text-ink sm:text-7xl">
-            {wedding.groom}
+            {wedding.bride}
           </h1>
         </Stagger>
 
