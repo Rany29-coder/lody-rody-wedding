@@ -61,7 +61,7 @@ export default function Monogram({ className = "" }: { className?: string }) {
         initial={{ opacity: 0, scale: 0.82, x: 8 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ duration: 0.9, delay: 0.7, ease }}
-        className="font-serif text-5xl font-light tracking-tight text-ink sm:text-6xl"
+        className="gold-foil font-serif text-5xl font-light tracking-tight sm:text-6xl"
       >
         ODY
       </motion.span>

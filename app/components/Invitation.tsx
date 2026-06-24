@@ -5,15 +5,35 @@ import { AnimatePresence, motion } from "motion/react";
 import { wedding } from "../wedding-config";
 import Countdown from "./Countdown";
 import Monogram from "./Monogram";
+import Tilt from "./Tilt";
+
+// iOS 13+ requires explicit permission for gyroscope, granted from a tap.
+async function requestTiltPermission() {
+  const D = window.DeviceOrientationEvent as unknown as {
+    requestPermission?: () => Promise<string>;
+  };
+  if (D && typeof D.requestPermission === "function") {
+    try {
+      await D.requestPermission();
+    } catch {
+      /* user declined — pointer tilt still works */
+    }
+  }
+}
 
 export default function Invitation() {
   const [open, setOpen] = useState(false);
+
+  function handleOpen() {
+    requestTiltPermission();
+    setOpen(true);
+  }
 
   return (
     <div className="relative z-10 flex min-h-dvh w-full flex-col items-center justify-center px-5 py-12">
       <AnimatePresence mode="wait">
         {!open ? (
-          <Envelope key="envelope" onOpen={() => setOpen(true)} />
+          <Envelope key="envelope" onOpen={handleOpen} />
         ) : (
           <Card key="card" />
         )}
@@ -43,14 +63,14 @@ function Envelope({ onOpen }: { onOpen: () => void }) {
         className="relative h-44 w-72 sm:h-52 sm:w-96"
       >
         {/* Envelope body */}
-        <div className="absolute inset-0 rounded-md bg-gradient-to-b from-[#fefcf8] to-blush-soft shadow-[0_25px_60px_-20px_rgba(120,90,60,0.45)] ring-1 ring-gold-soft/40" />
+        <div className="absolute inset-0 rounded-md bg-gradient-to-b from-[#241a10] to-[#0d0a07] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.8)] ring-1 ring-gold/40" />
 
         {/* Inner pocket triangles (sides + bottom) */}
         <div
           className="absolute inset-0 rounded-md"
           style={{
             background:
-              "linear-gradient(45deg, rgba(216,189,133,0.18) 0 50%, transparent 50%), linear-gradient(-45deg, rgba(216,189,133,0.18) 0 50%, transparent 50%)",
+              "linear-gradient(45deg, rgba(230,205,138,0.10) 0 50%, transparent 50%), linear-gradient(-45deg, rgba(230,205,138,0.10) 0 50%, transparent 50%)",
             backgroundSize: "50.5% 100%",
             backgroundPosition: "left, right",
             backgroundRepeat: "no-repeat",
@@ -62,18 +82,27 @@ function Envelope({ onOpen }: { onOpen: () => void }) {
           className="absolute left-0 right-0 top-0 h-1/2 origin-top"
           style={{
             clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-            background: "linear-gradient(to bottom, #fdf8f1, #f0ddd6)",
-            filter: "drop-shadow(0 6px 6px rgba(120,90,60,0.18))",
+            background: "linear-gradient(to bottom, #2c2012, #15100a)",
+            filter: "drop-shadow(0 6px 6px rgba(0,0,0,0.5))",
+          }}
+        />
+        {/* Thin gold seam along the flap */}
+        <div
+          className="absolute left-0 right-0 top-0 h-1/2"
+          style={{
+            clipPath: "polygon(0 0, 50% 100%, 100% 0)",
+            background:
+              "linear-gradient(to bottom right, transparent 49.6%, rgba(230,205,138,0.5) 49.8%, transparent 50.1%), linear-gradient(to bottom left, transparent 49.6%, rgba(230,205,138,0.5) 49.8%, transparent 50.1%)",
           }}
         />
 
         {/* Wax seal */}
-        <div className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-gold-soft to-gold text-background shadow-lg ring-2 ring-[#fffdfb]/60">
+        <div className="absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-gold-bright via-gold-soft to-gold text-background shadow-[0_4px_14px_rgba(0,0,0,0.6)] ring-2 ring-[#0a0807]/50">
           <span className="font-script text-2xl leading-none">R&amp;L</span>
         </div>
       </motion.div>
 
-      <span className="animate-breathe mt-9 font-sans text-xs uppercase tracking-[0.4em] text-gold">
+      <span className="animate-breathe mt-9 font-sans text-xs uppercase tracking-[0.4em] text-gold-soft">
         Tap to open
       </span>
     </motion.button>
@@ -90,105 +119,110 @@ function Card() {
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className="w-full max-w-lg"
     >
-      <div className="relative overflow-hidden rounded-2xl bg-[#fffdf9]/85 px-7 py-12 text-center shadow-[0_30px_80px_-30px_rgba(120,90,60,0.5)] ring-1 ring-gold-soft/40 backdrop-blur-sm sm:px-12">
-        {/* Corner flourishes */}
-        <Flourish className="left-4 top-4" />
-        <Flourish className="right-4 top-4 -scale-x-100" />
-        <Flourish className="bottom-4 left-4 -scale-y-100" />
-        <Flourish className="bottom-4 right-4 -scale-100" />
+      <Tilt className="w-full" max={9}>
+        <div className="relative overflow-hidden rounded-2xl bg-[#120d08]/85 px-7 py-12 text-center shadow-[0_45px_120px_-30px_rgba(0,0,0,0.85)] ring-1 ring-gold/30 backdrop-blur-sm sm:px-12">
+          {/* Inset gold hairline frame */}
+          <div className="pointer-events-none absolute inset-3 rounded-xl ring-1 ring-gold/15" />
 
-        <Stagger delay={0.1}>
-          <Monogram className="mb-7" />
-        </Stagger>
+          {/* Corner flourishes */}
+          <Flourish className="left-4 top-4" />
+          <Flourish className="right-4 top-4 -scale-x-100" />
+          <Flourish className="bottom-4 left-4 -scale-y-100" />
+          <Flourish className="bottom-4 right-4 -scale-100" />
 
-        <Stagger delay={0.15}>
-          <p className="font-sans text-[11px] uppercase tracking-[0.4em] text-gold">
-            The Wedding Of
-          </p>
-        </Stagger>
+          <Stagger delay={0.1}>
+            <Monogram className="mb-7" />
+          </Stagger>
 
-        <Stagger delay={0.3}>
-          <h1 className="mt-6 font-script text-6xl leading-none text-ink sm:text-7xl">
-            {wedding.groom}
-          </h1>
-        </Stagger>
-
-        <Stagger delay={0.42}>
-          <div className="my-3 flex items-center justify-center gap-4">
-            <span className="gold-rule w-16" />
-            <span className="font-script text-3xl text-gold">&amp;</span>
-            <span className="gold-rule w-16" />
-          </div>
-        </Stagger>
-
-        <Stagger delay={0.54}>
-          <h1 className="font-script text-6xl leading-none text-ink sm:text-7xl">
-            {wedding.bride}
-          </h1>
-        </Stagger>
-
-        <Stagger delay={0.7}>
-          <p className="mx-auto mt-8 max-w-sm font-serif text-base italic leading-relaxed text-foreground/80">
-            {wedding.invitationLine}
-          </p>
-        </Stagger>
-
-        <Stagger delay={0.82}>
-          <div className="mt-8 space-y-1">
-            <p className="font-serif text-xl text-ink">{wedding.dateLabel}</p>
-            <p className="font-sans text-sm tracking-wide text-foreground/70">
-              {wedding.timeLabel}
+          <Stagger delay={0.15}>
+            <p className="font-sans text-[11px] uppercase tracking-[0.4em] text-gold">
+              The Wedding Of
             </p>
-            <p className="mt-3 font-serif text-lg text-ink">
-              {wedding.venueName}
-            </p>
-            <p className="font-sans text-sm tracking-wide text-foreground/70">
-              {wedding.venueAddress}
-            </p>
-          </div>
-        </Stagger>
+          </Stagger>
 
-        {wedding.date && (
-          <Stagger delay={0.94}>
-            <div className="mt-10">
-              <Countdown date={wedding.date} />
+          <Stagger delay={0.3}>
+            <h1 className="gold-foil mt-6 font-script text-6xl leading-none sm:text-7xl">
+              {wedding.groom}
+            </h1>
+          </Stagger>
+
+          <Stagger delay={0.42}>
+            <div className="my-3 flex items-center justify-center gap-4">
+              <span className="gold-rule w-16" />
+              <span className="font-script text-3xl text-gold-bright">&amp;</span>
+              <span className="gold-rule w-16" />
             </div>
           </Stagger>
-        )}
 
-        <Stagger delay={1.05}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            {wedding.rsvpUrl ? (
-              <a
-                href={wedding.rsvpUrl}
-                className="rounded-full bg-gradient-to-br from-gold-soft to-gold px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-[#fffdf9] shadow-md transition hover:brightness-105 active:scale-95"
-              >
-                RSVP
-              </a>
-            ) : (
-              <span className="rounded-full border border-gold-soft/60 px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-gold">
-                RSVP — coming soon
-              </span>
-            )}
-            {wedding.mapsUrl && (
-              <a
-                href={wedding.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-gold-soft/60 px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-gold transition hover:bg-blush-soft/60 active:scale-95"
-              >
-                View Map
-              </a>
-            )}
-          </div>
-        </Stagger>
+          <Stagger delay={0.54}>
+            <h1 className="gold-foil font-script text-6xl leading-none sm:text-7xl">
+              {wedding.bride}
+            </h1>
+          </Stagger>
 
-        <Stagger delay={1.18}>
-          <p className="mt-10 font-script text-2xl text-gold">
-            We can&apos;t wait to celebrate with you
-          </p>
-        </Stagger>
-      </div>
+          <Stagger delay={0.7}>
+            <p className="mx-auto mt-8 max-w-sm font-serif text-base italic leading-relaxed text-foreground/80">
+              {wedding.invitationLine}
+            </p>
+          </Stagger>
+
+          <Stagger delay={0.82}>
+            <div className="mt-8 space-y-1">
+              <p className="font-serif text-xl text-ink">{wedding.dateLabel}</p>
+              <p className="font-sans text-sm tracking-wide text-foreground/65">
+                {wedding.timeLabel}
+              </p>
+              <p className="mt-3 font-serif text-lg text-ink">
+                {wedding.venueName}
+              </p>
+              <p className="font-sans text-sm tracking-wide text-foreground/65">
+                {wedding.venueAddress}
+              </p>
+            </div>
+          </Stagger>
+
+          {wedding.date && (
+            <Stagger delay={0.94}>
+              <div className="mt-10">
+                <Countdown date={wedding.date} />
+              </div>
+            </Stagger>
+          )}
+
+          <Stagger delay={1.05}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              {wedding.rsvpUrl ? (
+                <a
+                  href={wedding.rsvpUrl}
+                  className="rounded-full bg-gradient-to-br from-gold-bright via-gold-soft to-gold px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-background shadow-md transition hover:brightness-110 active:scale-95"
+                >
+                  RSVP
+                </a>
+              ) : (
+                <span className="rounded-full border border-gold/50 px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-gold-soft">
+                  RSVP — coming soon
+                </span>
+              )}
+              {wedding.mapsUrl && (
+                <a
+                  href={wedding.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-gold/50 px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-gold-soft transition hover:bg-gold/10 active:scale-95"
+                >
+                  View Map
+                </a>
+              )}
+            </div>
+          </Stagger>
+
+          <Stagger delay={1.18}>
+            <p className="mt-10 font-script text-2xl text-gold-soft">
+              We can&apos;t wait to celebrate with you
+            </p>
+          </Stagger>
+        </div>
+      </Tilt>
     </motion.div>
   );
 }
@@ -216,7 +250,7 @@ function Flourish({ className = "" }: { className?: string }) {
     <svg
       aria-hidden
       viewBox="0 0 40 40"
-      className={`pointer-events-none absolute h-9 w-9 text-gold-soft/70 ${className}`}
+      className={`pointer-events-none absolute h-9 w-9 text-gold/60 ${className}`}
       fill="none"
       stroke="currentColor"
       strokeWidth="1"
