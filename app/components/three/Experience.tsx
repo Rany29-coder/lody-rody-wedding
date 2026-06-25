@@ -3,12 +3,19 @@
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Edges, Float, PresentationControls, Sparkles } from "@react-three/drei";
+import {
+  Environment,
+  Float,
+  Lightformer,
+  PresentationControls,
+  Sparkles,
+} from "@react-three/drei";
 
 /**
- * Real WebGL 3D scene: a draggable envelope that opens in 3D space,
- * surrounded by gold sparkles floating in actual depth. Stays mounted
- * as a fixed background; the HTML journey scrolls on top once opened.
+ * Realistic WebGL 3D envelope. Beveled paper flaps form the classic
+ * envelope diamond, a metallic gold wax seal reflects a studio
+ * environment, and a cream card lifts out on open. Stays mounted as a
+ * fixed background; the HTML journey scrolls on top once opened.
  */
 export default function Experience({
   opening,
@@ -27,9 +34,10 @@ export default function Experience({
       style={{ pointerEvents: open ? "none" : "auto" }}
     >
       <Canvas
+        shadows
         dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-        camera={{ position: [0, 0, 6], fov: 38 }}
+        gl={{ antialias: true, alpha: true, toneMappingExposure: 1.05 }}
+        camera={{ position: [0, 0.2, 6.4], fov: 34 }}
       >
         <Suspense fallback={null}>
           <Scene
@@ -57,21 +65,48 @@ function Scene({
 }) {
   return (
     <>
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[4, 6, 5]} intensity={1.9} color="#fff1d0" />
-      <directionalLight position={[0, 0, 6]} intensity={0.4} color="#ffe7b8" />
-      <pointLight position={[-5, 1, 4]} intensity={30} color="#ffcf86" />
-      <pointLight position={[4, -3, -2]} intensity={16} color="#c8a24c" />
-      {/* Rim light from behind to catch the envelope's gold edges */}
-      <pointLight position={[0, 2, -4]} intensity={30} color="#ffd98a" />
+      {/* Soft diffuse fills */}
+      <ambientLight intensity={0.35} />
+      <directionalLight position={[3, 5, 4]} intensity={1.5} color="#fff1d6" />
+      <directionalLight position={[-4, 2, 3]} intensity={0.5} color="#ffd98a" />
 
-      {/* Gold dust floating in true 3D */}
+      {/* Studio environment — gives the gold real reflections (no external file) */}
+      <Environment resolution={256}>
+        <color attach="background" args={["#0a0806"]} />
+        <Lightformer
+          intensity={3}
+          color="#fff3d6"
+          position={[0, 4, 3]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={[9, 4, 1]}
+        />
+        <Lightformer
+          intensity={1.8}
+          color="#ffce82"
+          position={[-5, 2, 2]}
+          scale={[3, 5, 1]}
+        />
+        <Lightformer
+          intensity={1.4}
+          color="#c8a24c"
+          position={[5, -1, 2]}
+          scale={[3, 5, 1]}
+        />
+        <Lightformer
+          intensity={0.7}
+          color="#ffffff"
+          position={[0, -3, 3]}
+          scale={[7, 2, 1]}
+        />
+      </Environment>
+
+      {/* Gold dust in true 3D depth */}
       <Sparkles
-        count={120}
+        count={110}
         scale={[14, 16, 8]}
         size={3}
-        speed={0.3}
-        opacity={0.8}
+        speed={0.28}
+        opacity={0.75}
         color="#e6cd8a"
       />
 
@@ -82,17 +117,20 @@ function Scene({
           global
           snap
           damping={0.18}
-          polar={[-0.3, 0.3]}
+          rotation={[-0.12, -0.32, 0]}
+          polar={[-0.35, 0.35]}
           azimuth={[-0.6, 0.6]}
         >
-          <Float speed={1.2} rotationIntensity={0.25} floatIntensity={0.5}>
+          <Float speed={1.1} rotationIntensity={0.18} floatIntensity={0.4}>
             <Envelope opening={opening} onClick={onRequestOpen} onOpened={onOpened} />
           </Float>
         </PresentationControls>
       ) : (
-        <Float speed={1.2} rotationIntensity={0.2} floatIntensity={0.4}>
-          <Envelope opening={opening} onClick={onRequestOpen} onOpened={onOpened} />
-        </Float>
+        <group rotation={[-0.12, -0.32, 0]}>
+          <Float speed={1.1} rotationIntensity={0.15} floatIntensity={0.35}>
+            <Envelope opening={opening} onClick={onRequestOpen} onOpened={onOpened} />
+          </Float>
+        </group>
       )}
     </>
   );
@@ -102,11 +140,67 @@ function Scene({
 function Rig() {
   useFrame((state, dt) => {
     const k = Math.min(1, dt * 2.2);
-    state.camera.position.x += (state.pointer.x * 0.7 - state.camera.position.x) * k;
-    state.camera.position.y += (state.pointer.y * 0.45 - state.camera.position.y) * k;
+    state.camera.position.x += (state.pointer.x * 0.6 - state.camera.position.x) * k;
+    state.camera.position.y +=
+      (0.2 + state.pointer.y * 0.4 - state.camera.position.y) * k;
     state.camera.lookAt(0, 0, 0);
   });
   return null;
+}
+
+// Envelope dimensions
+const W = 3.2;
+const H = 2.16;
+
+// Reusable materials
+function useMaterials() {
+  return useMemo(() => {
+    const paper = new THREE.MeshStandardMaterial({
+      color: "#171009",
+      metalness: 0.25,
+      roughness: 0.72,
+    });
+    const paperLit = new THREE.MeshStandardMaterial({
+      color: "#221708",
+      metalness: 0.3,
+      roughness: 0.66,
+    });
+    const gold = new THREE.MeshStandardMaterial({
+      color: "#caa24c",
+      metalness: 1,
+      roughness: 0.28,
+    });
+    const wax = new THREE.MeshStandardMaterial({
+      color: "#b8902f",
+      metalness: 0.9,
+      roughness: 0.34,
+      emissive: new THREE.Color("#3a2806"),
+      emissiveIntensity: 0.3,
+    });
+    const cream = new THREE.MeshStandardMaterial({
+      color: "#efe6d2",
+      metalness: 0.05,
+      roughness: 0.85,
+    });
+    return { paper, paperLit, gold, wax, cream };
+  }, []);
+}
+
+const extrude = (depth: number, bevel = 0.012) => ({
+  depth,
+  bevelEnabled: true,
+  bevelThickness: bevel,
+  bevelSize: bevel,
+  bevelSegments: 2,
+});
+
+function tri(ax: number, ay: number, bx: number, by: number, cx: number, cy: number) {
+  const s = new THREE.Shape();
+  s.moveTo(ax, ay);
+  s.lineTo(bx, by);
+  s.lineTo(cx, cy);
+  s.lineTo(ax, ay);
+  return s;
 }
 
 function Envelope({
@@ -122,37 +216,33 @@ function Envelope({
   const card = useRef<THREE.Group>(null);
   const prog = useRef(0);
   const fired = useRef(false);
+  const m = useMaterials();
 
-  const flapShape = useMemo(() => {
-    const w = 3.2;
-    const h = 1.12;
-    const s = new THREE.Shape();
-    s.moveTo(-w / 2, 0);
-    s.lineTo(w / 2, 0);
-    s.lineTo(0, -h);
-    s.lineTo(-w / 2, 0);
-    return s;
-  }, []);
-
-  const pocketShape = useMemo(() => {
-    const w = 3.2;
-    const s = new THREE.Shape();
-    s.moveTo(-w / 2, -1.05);
-    s.lineTo(w / 2, -1.05);
-    s.lineTo(0, 0.02);
-    s.lineTo(-w / 2, -1.05);
-    return s;
+  const shapes = useMemo(() => {
+    const panel = new THREE.Shape();
+    panel.moveTo(-W / 2, -H / 2);
+    panel.lineTo(W / 2, -H / 2);
+    panel.lineTo(W / 2, H / 2);
+    panel.lineTo(-W / 2, H / 2);
+    panel.lineTo(-W / 2, -H / 2);
+    return {
+      panel,
+      bottom: tri(-W / 2, -H / 2, W / 2, -H / 2, 0, 0.12),
+      left: tri(-W / 2, -H / 2, -W / 2, H / 2, 0, 0),
+      right: tri(W / 2, -H / 2, W / 2, H / 2, 0, 0),
+      top: tri(-W / 2, 0, W / 2, 0, 0, -H / 2 - 0.04), // hinge at y=0 of its group
+    };
   }, []);
 
   useFrame((_, dt) => {
     const target = opening ? 1 : 0;
     prog.current = THREE.MathUtils.damp(prog.current, target, 3, dt);
     const p = prog.current;
-
-    if (flap.current) flap.current.rotation.x = -2.5 * p;
+    if (flap.current) flap.current.rotation.x = -2.55 * p;
     if (card.current) {
-      card.current.position.y = -0.1 + 1.75 * p;
-      card.current.position.z = 0.0 + 0.7 * p;
+      card.current.position.y = -0.05 + 1.85 * p;
+      card.current.position.z = 0.05 + 0.8 * p;
+      card.current.rotation.x = -0.12 * p;
     }
     if (opening && !fired.current && p > 0.92) {
       fired.current = true;
@@ -169,64 +259,56 @@ function Envelope({
       onPointerOver={() => (document.body.style.cursor = "pointer")}
       onPointerOut={() => (document.body.style.cursor = "default")}
     >
-      {/* Body */}
-      <mesh>
-        <boxGeometry args={[3.2, 2.1, 0.16]} />
-        <meshStandardMaterial color="#2e2010" metalness={0.55} roughness={0.42} />
-        <Edges threshold={15} color="#e6cd8a" />
+      {/* Back panel */}
+      <mesh material={m.paper} position={[0, 0, -0.05]} castShadow receiveShadow>
+        <extrudeGeometry args={[shapes.panel, extrude(0.05, 0.02)]} />
       </mesh>
 
-      {/* Card that rises out (hidden inside when closed) */}
-      <group ref={card} position={[0, -0.1, 0]}>
-        <mesh>
-          <planeGeometry args={[2.5, 1.66]} />
-          <meshStandardMaterial color="#caa44e" metalness={0.85} roughness={0.3} />
+      {/* Cream card (hidden inside, rises on open) */}
+      <group ref={card} position={[0, -0.05, 0.05]}>
+        <mesh material={m.cream} castShadow>
+          <boxGeometry args={[W - 0.34, H - 0.34, 0.03]} />
         </mesh>
-        <mesh position={[0, 0, 0.012]}>
-          <planeGeometry args={[2.34, 1.5]} />
-          <meshStandardMaterial color="#15110b" metalness={0.2} roughness={0.6} />
-        </mesh>
+        {/* gold inner border */}
+        <lineSegments position={[0, 0, 0.02]}>
+          <edgesGeometry
+            args={[new THREE.PlaneGeometry(W - 0.62, H - 0.62)]}
+          />
+          <lineBasicMaterial color="#b8902f" />
+        </lineSegments>
       </group>
 
-      {/* Front pocket V */}
-      <mesh position={[0, 0, 0.082]}>
-        <shapeGeometry args={[pocketShape]} />
-        <meshStandardMaterial
-          color="#241809"
-          metalness={0.5}
-          roughness={0.5}
-          side={THREE.DoubleSide}
-        />
-        <Edges threshold={1} color="#cdb06a" />
+      {/* Static folded flaps: bottom + sides (form the diamond) */}
+      <mesh material={m.paperLit} position={[0, 0, 0.045]}>
+        <extrudeGeometry args={[shapes.bottom, extrude(0.022)]} />
+      </mesh>
+      <mesh material={m.paper} position={[0, 0, 0.05]}>
+        <extrudeGeometry args={[shapes.left, extrude(0.022)]} />
+      </mesh>
+      <mesh material={m.paper} position={[0, 0, 0.05]}>
+        <extrudeGeometry args={[shapes.right, extrude(0.022)]} />
       </mesh>
 
-      {/* Top flap (hinged at top edge) with the wax seal attached */}
-      <group ref={flap} position={[0, 1.05, 0.085]}>
-        <mesh>
-          <shapeGeometry args={[flapShape]} />
-          <meshStandardMaterial
-            color="#33240f"
-            metalness={0.55}
-            roughness={0.45}
-            side={THREE.DoubleSide}
-          />
-          <Edges threshold={1} color="#e6cd8a" />
+      {/* Top flap (hinged at top edge) with wax seal */}
+      <group ref={flap} position={[0, H / 2, 0.06]}>
+        <mesh material={m.paperLit}>
+          <extrudeGeometry args={[shapes.top, extrude(0.024)]} />
         </mesh>
-        {/* Wax seal near the apex */}
-        <mesh position={[0, -1.0, 0.03]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.32, 0.32, 0.06, 48]} />
-          <meshStandardMaterial
-            color="#c8a24c"
-            metalness={0.85}
-            roughness={0.38}
-            emissive="#4a3410"
-            emissiveIntensity={0.35}
-          />
-        </mesh>
-        <mesh position={[0, -1.0, 0.07]}>
-          <torusGeometry args={[0.2, 0.018, 16, 48]} />
-          <meshStandardMaterial color="#3a2a10" metalness={0.7} roughness={0.4} />
-        </mesh>
+        {/* Wax seal near the apex (travels with the flap) */}
+        <group position={[0, -H / 2 + 0.02, 0.05]}>
+          {/* wax disc facing the camera */}
+          <mesh material={m.wax} rotation={[Math.PI / 2, 0, 0]} castShadow>
+            <cylinderGeometry args={[0.3, 0.3, 0.07, 64]} />
+          </mesh>
+          {/* domed top */}
+          <mesh material={m.wax} position={[0, 0, 0.05]} scale={[1, 1, 0.5]}>
+            <sphereGeometry args={[0.24, 32, 16]} />
+          </mesh>
+          {/* gold emblem ring */}
+          <mesh material={m.gold} position={[0, 0, 0.085]}>
+            <torusGeometry args={[0.13, 0.012, 16, 48]} />
+          </mesh>
+        </group>
       </group>
     </group>
   );
