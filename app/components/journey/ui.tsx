@@ -40,7 +40,7 @@ export function SectionHeading({
       </p>
       <div className="my-4 flex items-center justify-center gap-3">
         <span className="gold-rule w-10" />
-        <span className="text-gold-soft">✦</span>
+        <span className="text-gold">✦</span>
         <span className="gold-rule w-10" />
       </div>
       <h2 className="gold-foil font-script text-5xl leading-tight sm:text-6xl">
@@ -70,14 +70,14 @@ export function Section({
   );
 }
 
-/** Shared input/textarea styling — dark with gold focus, 16px to stop iOS zoom. */
+/** Shared input/textarea styling — light with gold focus, 16px to stop iOS zoom. */
 export const fieldClass =
-  "w-full rounded-lg border border-gold/30 bg-black/40 px-4 py-3 font-serif text-base text-ink placeholder:text-foreground/35 outline-none transition focus:border-gold/70 focus:ring-1 focus:ring-gold/40";
+  "w-full rounded-lg border border-gold/30 bg-white/75 px-4 py-3 font-serif text-base text-ink placeholder:text-foreground/40 outline-none transition focus:border-gold/70 focus:ring-1 focus:ring-gold/40";
 
 /** Gold pill button. */
 export const goldButtonClass =
-  "inline-flex items-center justify-center rounded-full bg-gradient-to-br from-gold-bright via-gold-soft to-gold px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-background shadow-md transition hover:brightness-110 active:scale-95 disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-full bg-gradient-to-br from-[#caa24c] to-[#9b7628] px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-[#fff8e8] shadow-md transition hover:brightness-110 active:scale-95 disabled:opacity-50";
 
 /** Outlined gold pill button. */
 export const ghostButtonClass =
-  "inline-flex items-center justify-center rounded-full border border-gold/50 px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-gold-soft transition hover:bg-gold/10 active:scale-95";
+  "inline-flex items-center justify-center rounded-full border border-gold/50 px-8 py-3 font-sans text-sm uppercase tracking-[0.2em] text-gold transition hover:bg-gold/10 active:scale-95";

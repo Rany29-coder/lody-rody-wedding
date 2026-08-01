@@ -52,7 +52,7 @@ export default function Guestbook() {
       <Reveal delay={0.1}>
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl border border-gold/20 bg-[#120d08]/60 p-7 backdrop-blur-sm sm:p-8"
+          className="rounded-2xl border border-gold/25 bg-[#fffdf8]/85 p-7 shadow-[0_24px_60px_-30px_rgba(150,110,45,0.4)] backdrop-blur-sm sm:p-8"
         >
           <input
             value={name}
@@ -85,12 +85,12 @@ export default function Guestbook() {
               layout
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-xl border border-gold/15 bg-black/30 p-5"
+              className="rounded-xl border border-gold/20 bg-white/70 p-5 shadow-[0_12px_30px_-18px_rgba(150,110,45,0.35)]"
             >
-              <p className="font-serif text-base italic leading-relaxed text-foreground/85">
+              <p className="font-serif text-base italic leading-relaxed text-foreground/90">
                 “{m.text}”
               </p>
-              <p className="mt-3 font-script text-2xl text-gold-soft">
+              <p className="mt-3 font-script text-2xl text-gold">
                 {m.name}
               </p>
             </motion.div>

@@ -8,14 +8,15 @@ export const wedding = {
   groom: "Rody",
 
   // Use ISO format: "YYYY-MM-DDTHH:mm:ss". Leave date null to hide the countdown.
-  // Placeholder — replace with the real one.
-  date: "2026-12-12T17:00:00",
+  // Confirmed by the couple: November 7th. Time is still a placeholder.
+  date: "2026-11-07T17:00:00",
   // Duration in hours (used for the "Add to calendar" file)
   durationHours: 4,
 
   // Human-friendly strings shown on the card (override the auto-format if you like)
-  dateLabel: "Saturday, December 12th, 2026",
+  dateLabel: "Saturday, November 7th, 2026",
   timeLabel: "5:00 in the evening",
+  dateShort: "07 · 11 · 2026",
 
   venueName: "Qasr El Dobara Evangelical Church",
   venueAddress: "Downtown, Cairo, Egypt",
@@ -24,7 +25,7 @@ export const wedding = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Qasr+El+Dobara+Evangelical+Church+Cairo",
 
-  // Short line under the names
+  // Short line under the names (the couple will send final wording)
   invitationLine:
     "Together with their families, request the honour of your presence",
 
@@ -32,6 +33,6 @@ export const wedding = {
   hashtag: "#RodyAndLody",
 
   // Painted background illustration (KDEC scene). Drop the file in /public
-  // and set its name here, e.g. "venue.jpg". Empty = plain black-gold backdrop.
+  // and set its name here, e.g. "venue.jpg". Empty = ivory-gold backdrop.
   backgroundImage: "",
 } as const;

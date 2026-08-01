@@ -50,7 +50,7 @@ export default function Gallery() {
           >
             Upload Photos
           </button>
-          <p className="mt-3 font-serif text-xs italic text-foreground/45">
+          <p className="mt-3 font-serif text-xs italic text-foreground/60">
             Help us capture the day from every angle
           </p>
         </div>
@@ -58,9 +58,9 @@ export default function Gallery() {
 
       <Reveal delay={0.15}>
         {photos.length === 0 ? (
-          <div className="mt-8 rounded-2xl border border-dashed border-gold/25 bg-black/20 p-10 text-center">
+          <div className="mt-8 rounded-2xl border border-dashed border-gold/35 bg-white/50 p-10 text-center">
             <p className="text-3xl">📸</p>
-            <p className="mt-3 font-serif text-base text-foreground/55">
+            <p className="mt-3 font-serif text-base text-foreground/60">
               Be the first to share a photo.
             </p>
           </div>

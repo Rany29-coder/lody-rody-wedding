@@ -49,16 +49,16 @@ export default function Details() {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <div className="rounded-2xl border border-gold/20 bg-[#120d08]/60 p-8 text-center backdrop-blur-sm">
+        <div className="rounded-2xl border border-gold/25 bg-[#fffdf8]/85 p-8 text-center shadow-[0_24px_60px_-30px_rgba(150,110,45,0.4)] backdrop-blur-sm">
           <p className="font-serif text-2xl text-ink">{wedding.dateLabel}</p>
-          <p className="mt-1 font-sans text-xs uppercase tracking-[0.3em] text-gold-soft">
+          <p className="mt-1 font-sans text-xs uppercase tracking-[0.3em] text-gold">
             {wedding.timeLabel}
           </p>
 
           <div className="mx-auto my-7 h-px w-24 bg-gold/30" />
 
           <p className="font-serif text-xl text-ink">{wedding.venueName}</p>
-          <p className="mt-1 font-sans text-xs uppercase tracking-[0.25em] text-foreground/60">
+          <p className="mt-1 font-sans text-xs uppercase tracking-[0.25em] text-foreground/70">
             {wedding.venueAddress}
           </p>
 

@@ -3,7 +3,6 @@
 import { motion } from "motion/react";
 import Hero from "./Hero";
 import Details from "./Details";
-import Rsvp from "./Rsvp";
 import Guestbook from "./Guestbook";
 import Gallery from "./Gallery";
 import Closing from "./Closing";
@@ -29,8 +28,6 @@ export default function Journey() {
       <Hero />
       <Divider />
       <Details />
-      <Divider />
-      <Rsvp />
       <Divider />
       <Guestbook />
       <Divider />

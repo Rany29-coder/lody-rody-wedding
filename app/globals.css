@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  /* Black + gold luxury palette */
-  --background: #0a0807; /* near-black */
-  --foreground: #efe2c6; /* warm parchment */
-  --gold: #c8a24c;
-  --gold-soft: #e6cd8a;
-  --gold-bright: #fff4cf;
-  --ink: #f3e9d2; /* light text on dark surfaces */
-  --line: rgba(230, 205, 138, 0.25);
+  /* Joyful champagne ivory + gold palette (Lody: brighter, cheerful) */
+  --background: #faf5ec; /* warm ivory */
+  --foreground: #4a3a26; /* warm brown text */
+  --gold: #a8802e;
+  --gold-soft: #c9a558;
+  --gold-bright: #e8cd8d;
+  --ink: #3a2c19; /* deep warm brown for headings */
+  --line: rgba(168, 128, 46, 0.25);
 }
 
 @theme inline {
@@ -26,23 +26,23 @@
 
 body {
   background:
-    radial-gradient(130% 85% at 50% -20%, #2a2013 0%, #15100a 42%, #080706 100%);
+    radial-gradient(120% 90% at 50% -10%, #fffefb 0%, var(--background) 48%, #f0e5cd 100%);
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-serif), Georgia, serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Shimmering gold foil for headline text */
+/* Shimmering gold foil for headline text (tuned darker for light bg) */
 .gold-foil {
   background: linear-gradient(
     100deg,
-    #9a7b33 0%,
-    #e6cd8a 22%,
-    #fff4cf 42%,
-    #e6cd8a 58%,
-    #b8923f 78%,
-    #f0dca0 100%
+    #8a6a24 0%,
+    #b8923f 26%,
+    #dcbb6e 46%,
+    #b8923f 62%,
+    #8a6a24 82%,
+    #caa24c 100%
   );
   background-size: 220% auto;
   -webkit-background-clip: text;
@@ -61,7 +61,7 @@ body {
     90deg,
     transparent,
     var(--gold-soft) 20%,
-    var(--gold-bright) 50%,
+    var(--gold) 50%,
     var(--gold-soft) 80%,
     transparent
   );
@@ -74,7 +74,7 @@ body {
 }
 .animate-breathe { animation: breathe 2.4s ease-in-out infinite; }
 
-/* Drifting gold dust */
+/* Drifting gold dust (visible on ivory) */
 @keyframes petal-fall {
   0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
   10% { opacity: 1; }
@@ -85,8 +85,8 @@ body {
   position: absolute;
   top: 0;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff4cf, #d8b25a 55%, rgba(200, 162, 76, 0) 78%);
-  box-shadow: 0 0 7px rgba(230, 205, 138, 0.65);
+  background: radial-gradient(circle at 30% 30%, #ecd9a4, #bb9440 60%, rgba(168, 128, 46, 0) 80%);
+  box-shadow: 0 1px 4px rgba(150, 110, 40, 0.35);
   animation: petal-fall linear infinite;
   pointer-events: none;
   will-change: transform, opacity;
