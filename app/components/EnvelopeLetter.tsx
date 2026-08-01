@@ -350,7 +350,9 @@ export default function EnvelopeLetter({
             ? { delay: 0.6, duration: 0.9 }
             : { duration: 0.25 }
         }
-        className="animate-breathe mt-14 font-sans text-[11px] uppercase tracking-[0.45em] text-gold"
+        className={`${
+          stage === "closed" ? "animate-breathe" : ""
+        } mt-14 font-sans text-[11px] uppercase tracking-[0.45em] text-gold`}
       >
         Tap the seal to open
       </motion.p>
