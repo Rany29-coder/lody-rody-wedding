@@ -1,0 +1,1408 @@
+/* The botanical collection: scoped so the original invitation remains intact. */
+.design-world,
+.collection {
+  --paper: #f5f1e8;
+  --sage: #687660;
+  --rose: #b58e87;
+  --dark: #303b31;
+  --muted: #687264;
+  color: var(--dark);
+  background: #f2eee5;
+  font-family: var(--font-serif), Georgia, serif;
+  min-height: 100dvh;
+}
+.design-world *,
+.collection * {
+  box-sizing: border-box;
+}
+.design-world button,
+.design-world a,
+.collection a {
+  -webkit-tap-highlight-color: transparent;
+}
+.design-world button {
+  cursor: pointer;
+}
+.design-world button:focus-visible,
+.design-world a:focus-visible,
+.collection a:focus-visible,
+.design-world input:focus-visible,
+.design-world textarea:focus-visible,
+.object-tilt:focus-visible {
+  outline: 2px solid #687660;
+  outline-offset: 6px;
+}
+.design-header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw;
+  border-bottom: 1px solid #78827020;
+}
+.design-header a,
+.design-header button {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  background: none;
+  border: 0;
+  color: inherit;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.design-header > span {
+  font-size: 25px;
+  letter-spacing: 0.13em;
+}
+.eyebrow,
+.micro {
+  font-family: var(--font-sans), Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.micro {
+  font-size: 8px;
+  letter-spacing: 0.13em;
+}
+.opening {
+  position: relative;
+  min-height: calc(100svh - 76px);
+  padding: 44px 20px 35px;
+  text-align: center;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 55% 35%,
+    #fffdf6 0%,
+    #f2eee5 64%,
+    #e7e3d9 100%
+  );
+}
+.opening-heading {
+  position: relative;
+  z-index: 2;
+}
+.opening h1 {
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.07;
+  margin: 15px auto 12px;
+  max-width: 650px;
+  letter-spacing: -0.025em;
+}
+.opening-note {
+  font-size: 17px;
+  color: #6b7466;
+}
+.scene {
+  height: 360px;
+  max-width: 650px;
+  margin: 15px auto 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  perspective: 1600px;
+  isolation: isolate;
+  --light: 50%;
+  background: radial-gradient(
+    ellipse at var(--light) 20%,
+    #ffffff65,
+    transparent 60%
+  );
+}
+.scene-shadow {
+  position: absolute;
+  width: 270px;
+  height: 42px;
+  background: #39402d30;
+  border-radius: 50%;
+  filter: blur(20px);
+  bottom: 28px;
+  transform: rotate(-8deg);
+}
+.object-tilt {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+  touch-action: pan-y;
+}
+.object {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  width: 300px;
+  height: 225px;
+  transform: rotateX(12deg) rotateY(-12deg) rotateZ(-5deg);
+}
+.botanical-paper {
+  position: absolute;
+  inset: 0;
+  background-size: 100% 100%;
+  background-color: #f5f0e6;
+  pointer-events: none;
+}
+.initials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 85px;
+  font-weight: 400;
+  line-height: 1;
+  color: #313c31;
+  text-shadow: 0 1px 1px white;
+}
+.initials i {
+  font-family: var(--font-script), cursive;
+  font-size: 37px;
+  color: #7e8b74;
+  font-weight: 400;
+}
+.wax-seal {
+  width: 62px;
+  height: 62px;
+  border-radius: 46% 51% 45% 52%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    #e1c4b9,
+    #bf988c 42%,
+    #956e65 85%
+  );
+  box-shadow:
+    inset 2px 3px 3px #f5dacf,
+    inset -2px -3px 4px #704c40,
+    1px 6px 8px #34221e40;
+  position: relative;
+  transform: translateZ(6px);
+}
+.wax-seal:before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid #94695d;
+  border-radius: 50%;
+  box-shadow: 0 1px 1px #f3d7c6;
+}
+.wax-seal > span {
+  font-family: var(--font-script), cursive;
+  font-size: 27px;
+  color: #81574a;
+  text-shadow: 0 1px #edcec1;
+}
+.wax-seal > span > span {
+  font-size: 16px;
+}
+.invitation-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f8f4eb;
+  box-shadow: 1px 1px #d5ccba;
+}
+.face-copy {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+.face-copy .initials {
+  font-size: 66px;
+}
+.face-copy .face-names {
+  font-size: 25px;
+}
+.face-date {
+  font-size: 19px;
+  letter-spacing: 0.15em;
+}
+.face-date i {
+  font-size: 12px;
+  color: var(--rose);
+}
+.small-face .face-copy {
+  gap: 10px;
+  padding: 16px;
+}
+.small-face .micro {
+  font-size: 6px;
+}
+.small-face .initials {
+  font-size: 49px;
+}
+.small-face .initials i {
+  font-size: 24px;
+}
+.small-face .face-names {
+  font-size: 23px;
+}
+.small-face .face-date {
+  font-size: 16px;
+}
+/* 01: Physical paper layers with a hinged top flap and rising card. */
+.the-letter {
+  height: 195px;
+  width: 310px;
+}
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e0d9c9, #f8f3e8);
+  border-radius: 3px;
+  box-shadow:
+    1px 2px #cec5b3,
+    3px 6px #ddd5c4,
+    10px 24px 34px #59534040;
+}
+.envelope-pocket {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(4px);
+  background: linear-gradient(25deg, #e3dbc9, #faf7ee);
+  clip-path: polygon(0 0, 50% 61%, 100% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 -1px 1px #78695070);
+}
+.envelope-folds {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(33deg, transparent 49.5%, #d5c8b555 50%, transparent 50.5%),
+    linear-gradient(-33deg, transparent 49.5%, #d5c8b555 50%, transparent 50.5%);
+}
+.envelope-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 122px;
+  transform-origin: top;
+  transform: translateZ(5px);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: #e7dfd0;
+  transition: transform 1.15s ease-in-out;
+  backface-visibility: visible;
+}
+.envelope-flap .botanical-paper {
+  background-size: 100% 245%;
+  filter: brightness(0.97);
+}
+.envelope-seal {
+  position: absolute;
+  top: 90px;
+  left: calc(50% - 31px);
+  transform: translateZ(10px);
+  transition:
+    opacity 0.3s,
+    transform 0.6s;
+}
+.letter-insert {
+  position: absolute;
+  inset: 12px 22px 7px;
+  transform: translateZ(2px);
+  transition: transform 1.2s 0.55s;
+  box-shadow: 0 2px 8px #66533e28;
+}
+.the-letter.is-open {
+  transform: rotateX(0) rotateY(0) rotateZ(0) translateY(55px);
+}
+.is-open .envelope-flap {
+  transform: translateZ(1px) rotateX(180deg);
+}
+.is-open .envelope-seal {
+  opacity: 0;
+  transform: translateZ(50px) translateY(25px) rotate(15deg);
+}
+.is-open .letter-insert {
+  transform: translateY(-135px) translateZ(3px);
+}
+/* 02: Two independent paper doors, real transform origins. */
+.the-fold {
+  width: 260px;
+  height: 320px;
+  transform: rotateX(7deg) rotateY(-9deg) rotateZ(-3deg);
+}
+.gate-card {
+  position: absolute;
+  inset: 0;
+  box-shadow:
+    3px 4px #dbd3c3,
+    10px 18px 28px #41452f30;
+}
+.gate {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #8b987f;
+  backface-visibility: visible;
+  transition: transform 1.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform: translateZ(5px);
+  box-shadow: inset 0 0 40px #3a4b3525;
+}
+.gate .botanical-paper {
+  opacity: 0.23;
+  mix-blend-mode: multiply;
+  background-size: 200% 100%;
+}
+.left-gate {
+  left: 0;
+  transform-origin: left;
+}
+.right-gate {
+  right: 0;
+  transform-origin: right;
+}
+.right-gate .botanical-paper {
+  background-position: right;
+}
+.gate > span:last-child {
+  position: absolute;
+  top: 38%;
+  font-size: 75px;
+  color: #f7f1df;
+  left: 25%;
+  text-shadow: 1px 2px #4f6044;
+}
+.left-gate {
+  border-right: 1px solid #55634d;
+}
+.gate-tie {
+  position: absolute;
+  left: calc(50% - 31px);
+  top: 62%;
+  transform: translateZ(8px);
+  transition: opacity 0.35s;
+}
+.is-open .left-gate {
+  transform: translateZ(5px) rotateY(-122deg);
+}
+.is-open .right-gate {
+  transform: translateZ(5px) rotateY(122deg);
+}
+.is-open .gate-tie {
+  opacity: 0;
+}
+.the-fold.is-open {
+  transform: scale(0.91) rotateX(0) rotateY(0);
+}
+/* 03: A linen box and a sliding, deep-sided lid. */
+.the-keepsake {
+  width: 260px;
+  height: 290px;
+  transform: rotateX(23deg) rotateY(-18deg) rotateZ(-12deg);
+}
+.box-base {
+  position: absolute;
+  inset: 0;
+  background: #68775e;
+  border: 14px solid #879477;
+  border-bottom: 19px solid #69795c;
+  box-shadow:
+    3px 7px #526246,
+    6px 14px #5c6c50,
+    16px 34px 28px #39432d40;
+}
+.box-inner {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  background: #d6cfbe;
+  box-shadow: inset 0 5px 8px #263a2260;
+}
+.box-lid {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(28px);
+  background:
+    repeating-linear-gradient(0deg, #ffffff07 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, #00000007 0 1px, transparent 1px 3px),
+    #8b997e;
+  border: 1px solid #bac2a8;
+  box-shadow:
+    2px 4px #69775e,
+    4px 8px #607154,
+    0 13px 16px #23351f35;
+  transition:
+    transform 1.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 1.6s;
+}
+.ribbon {
+  position: absolute;
+  background: linear-gradient(90deg, #c2a297, #dfc4b6 50%, #c2a297);
+  box-shadow: 0 2px 3px #3a382830;
+}
+.ribbon-vertical {
+  width: 29px;
+  height: 100%;
+  left: 43%;
+}
+.ribbon-horizontal {
+  height: 27px;
+  width: 100%;
+  top: 45%;
+}
+.lid-label {
+  position: absolute;
+  inset: 25%;
+  width: 50%;
+  height: 50%;
+  background: #f5eee1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 2px 5px #25342030;
+}
+.lid-label .initials {
+  font-size: 44px;
+  gap: 5px;
+}
+.lid-label .initials i {
+  font-size: 22px;
+}
+.lid-label .micro {
+  font-size: 6px;
+}
+.the-keepsake.is-open {
+  transform: rotateX(10deg) rotateY(0) rotateZ(0);
+}
+.is-open .box-lid {
+  transform: translateZ(80px) translateX(330px) rotateZ(18deg);
+  opacity: 0;
+}
+/* 04: Bound book, visible page edges, hinged cloth cover. */
+.the-storybook {
+  width: 245px;
+  height: 305px;
+  transform: rotateX(7deg) rotateY(-17deg) rotateZ(-7deg);
+}
+.book-pages {
+  position: absolute;
+  inset: 4px -2px 4px 7px;
+  background: #f7f3e9;
+  box-shadow:
+    2px 2px #cfc6b5,
+    4px 4px #f5f0e3,
+    5px 6px #c5bcab,
+    7px 8px #f8f4e9,
+    9px 10px #a88a7d,
+    15px 22px 30px #634a3930;
+}
+.book-pages .botanical-paper {
+  opacity: 0.6;
+}
+.book-cover {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, #ffffff08 0 1px, transparent 1px 3px),
+    #b79891;
+  border: 1px solid #d9bab0;
+  border-radius: 2px 5px 5px 2px;
+  box-shadow:
+    inset 0 0 0 12px #b79891,
+    inset 0 0 0 13px #dcc2b0,
+    2px 3px #8d6b61;
+  transform-origin: left;
+  transform: translateZ(12px);
+  transition: transform 1.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  backface-visibility: hidden;
+}
+.book-cover .initials,
+.book-cover {
+  color: #f9eddd;
+}
+.book-cover .initials {
+  text-shadow: 1px 2px #936e64;
+  font-size: 66px;
+}
+.book-cover .initials i {
+  color: #f9eddd;
+}
+.book-title {
+  font-size: 24px;
+}
+.book-spine {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  box-shadow: inset 3px 0 6px #563d392b;
+}
+.book-flower {
+  font-size: 25px;
+  color: #ead8c3;
+}
+.is-open .book-cover {
+  transform: translateZ(12px) rotateY(-152deg);
+}
+.the-storybook.is-open {
+  transform: translateX(24px) rotateY(0) rotateX(0);
+}
+.book-page-copy {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 65px 25px;
+}
+.book-page-copy h3 {
+  font-size: 37px;
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 22px 0;
+}
+.book-page-copy p {
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+/* 05: Paper theatre with separated planes and an adjustable light source. */
+.the-garden {
+  height: 305px;
+  width: 270px;
+  transform: rotateX(4deg) rotateY(-8deg);
+}
+.garden-arch {
+  position: absolute;
+  border-radius: 140px 140px 0 0;
+  transform-style: preserve-3d;
+  transition:
+    transform 1.8s,
+    opacity 1.8s;
+  box-shadow:
+    7px 9px 14px #3d4e3430,
+    inset 1px 1px 2px #fff8;
+  pointer-events: none;
+}
+.back-arch {
+  inset: 0;
+  background: #9aa58c;
+  border: 10px solid #b5bba2;
+  transform: translateZ(-25px);
+}
+.middle-arch {
+  inset: 18px 18px 0;
+  border: 18px solid #d7dac8;
+  transform: translateZ(5px);
+}
+.front-arch {
+  inset: 36px 36px 0;
+  border: 18px solid #eee9db;
+  transform: translateZ(35px);
+}
+.garden-invitation {
+  position: absolute;
+  inset: 62px 53px 12px;
+  transform: translateZ(15px);
+  transition: transform 1.7s 0.2s;
+  filter: drop-shadow(var(--shadow-x, 0px) 7px 5px #26351f40);
+}
+.garden-invitation .initials {
+  font-size: 38px;
+}
+.garden-invitation .face-copy {
+  gap: 12px;
+}
+.garden-invitation .micro {
+  font-size: 5px;
+}
+.garden-invitation .face-names {
+  font-size: 17px;
+}
+.garden-invitation .face-date {
+  font-size: 12px;
+}
+.leaf-branch {
+  position: absolute;
+  width: 140px;
+  height: 270px;
+  pointer-events: none;
+  filter: drop-shadow(6px 9px 4px #3b4b3030);
+}
+.garden-leaves-left {
+  left: -42px;
+  bottom: -15px;
+  transform: translateZ(75px) rotate(-12deg);
+  transition: transform 1.8s;
+}
+.garden-leaves-right {
+  right: -42px;
+  bottom: -15px;
+  transform: translateZ(95px) rotateY(180deg) rotate(-10deg);
+  transition: transform 1.8s;
+}
+.is-open .garden-leaves-left {
+  transform: translateZ(100px) translateX(-40px) rotate(-27deg);
+}
+.is-open .garden-leaves-right {
+  transform: translateZ(100px) translateX(40px) rotateY(180deg) rotate(-27deg);
+}
+.is-open .front-arch {
+  transform: translateZ(100px) scale(1.18);
+  opacity: 0.4;
+}
+.is-open .garden-invitation {
+  transform: translateZ(120px) scale(1.2);
+}
+.the-garden.is-open {
+  transform: rotateX(0) rotateY(0);
+}
+.opening-controls {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 128px;
+}
+.primary-action,
+.secondary-action {
+  border: 1px solid #65745c;
+  background: #65745c;
+  color: #fffaf0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  min-height: 48px;
+  padding: 13px 25px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+  border-radius: 2px;
+}
+.primary-action:hover {
+  background: #485740;
+  box-shadow: 0 6px 15px #4b5a4020;
+}
+.primary-action > span {
+  font-size: 18px;
+}
+.secondary-action {
+  background: transparent;
+  color: var(--sage);
+  border-color: #9ba28e;
+}
+.text-action {
+  border: 0;
+  background: none;
+  color: var(--sage);
+  font-size: 16px;
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.interaction-hint {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  color: #727a6b;
+  letter-spacing: 0.02em;
+}
+.concept-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  opacity: 0.65;
+  display: block;
+  margin-top: 12px;
+}
+.share-status {
+  font-size: 12px;
+  min-height: 0;
+}
+.share-status:empty {
+  display: none;
+}
+.light-control {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-size: 13px;
+}
+.light-control input {
+  accent-color: var(--sage);
+  width: 130px;
+}
+.world-the-fold .opening {
+  background: radial-gradient(ellipse at 60% 30%, #f8f8ed, #e4e8dc 70%);
+}
+.world-the-keepsake .opening {
+  background: radial-gradient(ellipse at 60% 30%, #f2f0df, #d3dbc8 80%);
+}
+.world-the-storybook .opening {
+  background: radial-gradient(ellipse at 60% 30%, #fcf7ef, #ecddd5 80%);
+}
+.world-the-garden .opening {
+  background: radial-gradient(ellipse at 60% 30%, #fbfaee, #e0e5d3 80%);
+}
+.journey-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px 12px;
+  background: #f5f1e8ed;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #7c866d25;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+}
+.wedding-details {
+  padding-bottom: 30px;
+}
+.wedding-details[hidden] {
+  display: none;
+}
+.wedding-details section,
+.formal-invitation {
+  scroll-margin-top: 80px;
+}
+.formal-invitation {
+  width: min(90%, 560px);
+  margin: 65px auto;
+  min-height: 770px;
+  position: relative;
+  box-shadow:
+    1px 2px #cfc7b6,
+    5px 8px #e9e2d4,
+    0 25px 55px #4a4e3620;
+}
+.formal-copy {
+  position: relative;
+  padding: 92px 45px 65px;
+  text-align: center;
+}
+.verse {
+  font-size: 15px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  margin-bottom: 15px;
+}
+.formal-copy .eyebrow {
+  font-size: 9px;
+}
+.families {
+  font-size: 24px;
+  line-height: 1.4;
+  margin: 40px 0 32px;
+}
+.formal-copy .initials {
+  font-size: 100px;
+}
+.formal-copy h2 {
+  font-size: 40px;
+  font-weight: 400;
+  margin: 15px 0 28px;
+  letter-spacing: 0.015em;
+}
+.formal-copy h2 i {
+  font-family: var(--font-script);
+  color: var(--sage);
+}
+.invite-line {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  line-height: 1.8;
+}
+.formal-date {
+  border-top: 1px solid #a49f8c;
+  border-bottom: 1px solid #a49f8c;
+  padding: 16px 12px;
+  margin: 24px auto 0;
+  max-width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.formal-date strong {
+  font-weight: 400;
+  font-size: 27px;
+}
+.formal-date span {
+  font-size: 14px;
+}
+.day-section,
+.wishes-section,
+.memories-section {
+  padding: 65px 24px;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+.wedding-details h2 {
+  font-size: clamp(35px, 5vw, 52px);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 14px 0 22px;
+  letter-spacing: -0.02em;
+}
+.day-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 40px 0;
+  border-top: 1px solid #9ca48f50;
+  border-bottom: 1px solid #9ca48f50;
+  padding: 30px 0;
+  gap: 30px;
+}
+.day-grid h3 {
+  font-size: 25px;
+  font-weight: 400;
+  margin: 10px 0;
+}
+.day-grid p {
+  font-size: 16px;
+}
+.day-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.days-count {
+  font-style: italic;
+  color: var(--sage);
+  font-size: 20px;
+  margin-top: 30px;
+}
+.section-intro {
+  font-size: 20px;
+  color: #707869;
+}
+.demo-note {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #747869;
+  max-width: 430px;
+  margin: 18px auto;
+}
+.wishes-section form {
+  max-width: 500px;
+  margin: 28px auto;
+  text-align: left;
+}
+.wishes-section label {
+  display: block;
+  font-size: 16px;
+  margin: 18px 0;
+}
+.wishes-section input,
+.wishes-section textarea {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 20px;
+  color: var(--dark);
+  border: 0;
+  border-bottom: 1px solid #a4ad984f;
+  border-radius: 0;
+  background: transparent;
+  resize: vertical;
+}
+.wishes-section form .primary-action {
+  width: 100%;
+}
+.wishes-section [role="status"],
+.memories-section [role="status"] {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.wishes-list {
+  max-width: 500px;
+  margin: auto;
+}
+.wishes-list blockquote {
+  padding: 25px;
+  background: #fffaf2;
+  box-shadow: 3px 4px 0 #dedacb;
+  margin: 20px 0;
+  overflow-wrap: anywhere;
+}
+.wishes-list blockquote p {
+  font-size: 24px;
+  font-style: italic;
+}
+.wishes-list cite {
+  display: block;
+  margin-top: 12px;
+  color: var(--sage);
+}
+.empty-wish {
+  font-style: italic;
+  color: #7c826e;
+}
+.photo-drop {
+  margin: 28px auto 0;
+  border: 1px dashed #9ca78c;
+  display: flex;
+  max-width: 500px;
+  min-height: 180px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 9px;
+  position: relative;
+  cursor: pointer;
+  background: #fdfaf260;
+}
+.photo-drop input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.photo-drop:focus-within {
+  outline: 2px solid #687660;
+  outline-offset: 4px;
+}
+.photo-drop strong {
+  font-size: 23px;
+  font-weight: 400;
+}
+.photo-drop > span:last-of-type {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+}
+.photo-icon {
+  font-size: 35px;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+.photo-grid > div {
+  position: relative;
+}
+.photo-grid img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border: 8px solid white;
+  box-shadow: 0 5px 12px #43493025;
+}
+.photo-grid button {
+  width: 100%;
+  background: none;
+  border: 0;
+}
+.photo-grid .remove-photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #fff;
+  width: 35px;
+  height: 35px;
+}
+.photo-dialog {
+  border: 0;
+  padding: 15px;
+  background: #f5f1e8;
+  max-width: 90vw;
+  max-height: 90dvh;
+  margin: auto;
+}
+.photo-dialog::backdrop {
+  background: #25311fe0;
+}
+.photo-dialog img {
+  max-width: 80vw;
+  max-height: 75dvh;
+  object-fit: contain;
+  width: auto;
+  height: auto;
+}
+.photo-dialog > button {
+  display: block;
+  margin: 0 0 12px auto;
+  background: none;
+  border: 0;
+  min-height: 44px;
+}
+.invitation-footer {
+  position: relative;
+  text-align: center;
+  padding: 60px 20px 35px;
+  overflow: hidden;
+}
+.invitation-footer .leaf-branch {
+  position: relative;
+  height: 100px;
+  width: 80px;
+  margin: 0 auto 30px;
+  filter: none;
+}
+.invitation-footer p {
+  font-style: italic;
+  font-size: 20px;
+}
+.invitation-footer h2 {
+  font-family: var(--font-script);
+  font-size: 50px;
+}
+.invitation-footer a {
+  display: block;
+  margin: 50px auto 0;
+  font-size: 14px;
+  color: var(--sage);
+}
+.collection-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 6vw;
+  border-bottom: 1px solid #7c866d25;
+}
+.collection-top a {
+  font-size: 28px;
+}
+.collection-top > span {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+.collection-intro {
+  padding: 75px 6vw 55px;
+  max-width: 1350px;
+  margin: auto;
+}
+.collection-intro h1 {
+  font-size: clamp(65px, 9vw, 120px);
+  font-weight: 400;
+  line-height: 0.93;
+  letter-spacing: -0.05em;
+  margin: 24px 0;
+}
+.collection-intro h1 i {
+  color: var(--sage);
+  font-weight: 300;
+}
+.collection-intro > p:last-of-type {
+  font-size: 21px;
+  color: #6d7465;
+  line-height: 1.5;
+  margin-top: 30px;
+}
+.palette {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 25px;
+}
+.palette > span {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1px solid #0001;
+  background: #f5f1e8;
+}
+.palette > span:nth-child(2) {
+  background: #8a987e;
+}
+.palette > span:nth-child(3) {
+  background: #bfa19a;
+}
+.palette > span:nth-child(4) {
+  background: #303b31;
+}
+.palette em {
+  font-size: 12px;
+  margin-left: 8px;
+}
+.collection-grid {
+  max-width: 1350px;
+  margin: auto;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px 30px;
+}
+.concept-preview {
+  display: block;
+}
+.preview-scene {
+  height: 365px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 55% 30%, #fffbf2, #e9e3d7);
+  perspective: 1400px;
+}
+.preview-scene .object {
+  transform: scale(0.84) rotateX(17deg) rotateY(-16deg) rotateZ(-7deg);
+  transition: transform 0.5s;
+}
+.concept-preview:hover .object {
+  transform: scale(0.9) rotateX(6deg) rotateY(-5deg) rotateZ(-3deg);
+}
+.preview-the-fold .preview-scene {
+  background: #e0e5d6;
+}
+.preview-the-keepsake .preview-scene {
+  background: #d1d9c6;
+}
+.preview-the-storybook .preview-scene {
+  background: #eadbd3;
+}
+.preview-the-garden .preview-scene {
+  background: #dce3cf;
+}
+.concept-copy {
+  padding: 24px 0 0;
+}
+.concept-copy .eyebrow {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+.concept-copy h2 {
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin: 10px 0;
+}
+.concept-copy h2 > span {
+  float: right;
+  color: var(--sage);
+}
+.concept-copy p {
+  font-size: 18px;
+  line-height: 1.45;
+  max-width: 460px;
+  color: #68725f;
+}
+.preview-link {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  display: inline-block;
+  margin-top: 20px;
+  border-bottom: 1px solid #8c987d;
+  padding-bottom: 7px;
+}
+.collection-footer {
+  text-align: center;
+  padding: 70px 25px 45px;
+}
+.collection-footer p {
+  font-size: 23px;
+  font-style: italic;
+}
+.collection-footer span {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  margin-top: 12px;
+}
+@media (min-width: 900px) {
+  .opening {
+    padding-top: 50px;
+  }
+  .scene {
+    height: 390px;
+  }
+  .object-tilt {
+    scale: 1.12;
+  }
+  .opening-controls {
+    margin-top: 12px;
+  }
+  .collection-grid .concept-preview:last-child {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    align-items: center;
+  }
+  .collection-grid .concept-preview:last-child .concept-copy {
+    padding: 30px;
+  }
+}
+@media (max-width: 600px) {
+  .design-header {
+    height: 62px;
+    padding: 0 20px;
+  }
+  .opening {
+    min-height: calc(100svh - 62px);
+    padding-top: 30px;
+  }
+  .opening h1 {
+    font-size: 34px;
+    max-width: 330px;
+  }
+  .opening .eyebrow {
+    font-size: 8px;
+  }
+  .opening-note {
+    font-size: 16px;
+  }
+  .scene {
+    height: 340px;
+    margin-top: 10px;
+  }
+  .object-tilt {
+    scale: 0.93;
+  }
+  .opening-controls {
+    gap: 8px;
+  }
+  .opening-controls .primary-action {
+    min-width: 210px;
+  }
+  .collection-intro {
+    padding-top: 48px;
+  }
+  .collection-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .preview-scene {
+    height: 330px;
+  }
+  .collection-top {
+    padding: 20px 6vw;
+  }
+  .collection-top > span {
+    font-size: 8px;
+  }
+  .formal-copy {
+    padding: 85px 23px 65px;
+  }
+  .formal-invitation {
+    min-height: 720px;
+  }
+  .formal-copy .verse {
+    font-size: 12px;
+  }
+  .formal-copy .initials {
+    font-size: 85px;
+  }
+  .families {
+    font-size: 22px;
+    margin-top: 36px;
+  }
+  .formal-copy h2 {
+    font-size: 36px;
+  }
+  .day-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .journey-nav {
+    gap: 20px;
+    font-size: 10px;
+    padding: 18px 8px;
+  }
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .photo-grid img {
+    height: 140px;
+  }
+  .wedding-details h2 {
+    font-size: 37px;
+  }
+}
+@media (max-width: 360px) {
+  .scene {
+    height: 320px;
+  }
+  .object-tilt {
+    scale: 0.83;
+  }
+  .opening h1 {
+    font-size: 30px;
+  }
+  .journey-nav {
+    gap: 14px;
+  }
+  .formal-copy {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .design-world *,
+  .design-world *:before,
+  .collection * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .object-tilt {
+    transform: none !important;
+  }
+}
+
+.book-page-copy {
+  transform-origin: left;
+  animation: page-settle 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes page-settle {
+  from {
+    transform: perspective(900px) rotateY(-75deg);
+    opacity: 0.1;
+  }
+  to {
+    transform: perspective(900px) rotateY(0);
+    opacity: 1;
+  }
+}
+.garden-arch {
+  filter: drop-shadow(var(--shadow-x, 0px) 5px 5px #3b4b3020);
+}
+
+.leaf-branch {
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* Keep every line inside the smaller card while it leaves its envelope. */
+.the-letter .face-copy {
+  gap: 6px;
+  padding: 10px;
+}
+.the-letter .face-copy .initials {
+  font-size: 38px;
+}
+.the-letter .face-copy .face-names {
+  font-size: 21px;
+  line-height: 1.1;
+}
+.the-letter .face-date {
+  font-size: 13px;
+  line-height: 1.2;
+}
+.the-letter .micro {
+  font-size: 5px;
+  line-height: 1.4;
+}

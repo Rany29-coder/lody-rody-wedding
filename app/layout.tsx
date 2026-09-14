@@ -25,13 +25,13 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: "Lody & Rody — You're Invited 💛",
+  title: "Rody & Lody — You're Invited 💛",
   description:
-    "Together with their families, Lody & Rody invite you to celebrate their wedding.",
+    "Together with their families, Rody & Lody invite you to celebrate their wedding.",
   openGraph: {
-    title: "Lody & Rody — You're Invited 💛",
+    title: "Rody & Lody — You're Invited 💛",
     description:
-      "Together with their families, Lody & Rody invite you to celebrate their wedding.",
+      "Together with their families, Rody & Lody invite you to celebrate their wedding.",
     type: "website",
   },
 };

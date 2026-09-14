@@ -6,6 +6,7 @@ const isGithubPages = process.env.GITHUB_PAGES === "true";
 const repo = "lody-rody-wedding";
 
 const nextConfig: NextConfig = {
+  env: { NEXT_PUBLIC_BASE_PATH: isGithubPages ? `/${repo}` : "" },
   output: "export", // static export — works on GitHub Pages, Supabase calls run client-side
   basePath: isGithubPages ? `/${repo}` : "",
   assetPrefix: isGithubPages ? `/${repo}/` : "",
