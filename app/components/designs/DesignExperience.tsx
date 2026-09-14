@@ -5,9 +5,11 @@ import { designs } from "./catalog";
 import DesignObject, { BotanicalPaper, Initials, LeafBranch } from "./Objects";
 import { wedding } from "../../wedding-config";
 import GuestExtras from "./GuestExtras";
+import { useReviewStore } from "./useReviewStore";
 type Design = (typeof designs)[number];
 export default function DesignExperience({ design }: { design: Design }) {
   const [opened, setOpened] = useState(false);
+  const { favorites, notes, update } = useReviewStore();
   const [page, setPage] = useState(0);
   const [light, setLight] = useState(50);
   const [copied, setCopied] = useState("");
@@ -91,7 +93,7 @@ export default function DesignExperience({ design }: { design: Design }) {
   return (
     <main className={`design-world world-${design.slug}`}>
       <header className="design-header">
-        <Link href="/designs/">← The collection</Link>
+        <Link href="/designs/">← Rody & Lody’s choices</Link>
         <span>R & L</span>
         <button onClick={share} aria-label="Copy invitation link">
           Share ↗
@@ -178,6 +180,22 @@ export default function DesignExperience({ design }: { design: Design }) {
               {page === 0 ? "Turn to the day →" : "← Back to our story"}
             </button>
           )}
+          {opened && design.slug === "the-fan" && (
+            <div
+              className="fan-controls"
+              aria-label="Explore the keepsake cards"
+            >
+              {["The couple", "The day", "The place"].map((label, index) => (
+                <button
+                  key={label}
+                  aria-pressed={page === index}
+                  onClick={() => setPage(index)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
           {design.slug === "the-garden" && (
             <label className="light-control">
               Move the sunlight
@@ -209,6 +227,29 @@ export default function DesignExperience({ design }: { design: Design }) {
             >
               Discover the day ↓
             </button>
+          )}
+          {opened && (
+            <div className="design-review-actions">
+              <button
+                className="favorite-button"
+                aria-pressed={favorites.includes(design.slug)}
+                onClick={() =>
+                  update({
+                    favorites: favorites.includes(design.slug)
+                      ? favorites.filter((s) => s !== design.slug)
+                      : [...favorites, design.slug],
+                    notes,
+                  })
+                }
+              >
+                {favorites.includes(design.slug)
+                  ? "♥ On our shortlist"
+                  : "♡ Add to our shortlist"}
+              </button>
+              <Link href="/designs/#your-choice">
+                Compare & leave feedback →
+              </Link>
+            </div>
           )}
           <span role="status" className="share-status">
             {copied}
@@ -302,7 +343,7 @@ export default function DesignExperience({ design }: { design: Design }) {
           <p>With all our love,</p>
           <h2>Rody & Lody</h2>
           <span className="eyebrow">07 · 11 · 2026</span>
-          <Link href="/designs/">Explore the five designs ↗</Link>
+          <Link href="/designs/">Explore all ten designs ↗</Link>
         </footer>
       </section>
     </main>

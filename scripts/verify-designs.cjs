@@ -8,6 +8,11 @@ const slugs = [
   "the-keepsake",
   "the-storybook",
   "the-garden",
+  "the-vellum",
+  "the-ribbon",
+  "the-scroll",
+  "the-fan",
+  "the-frame",
 ];
 (async () => {
   const browser = await chromium.launch();
@@ -38,6 +43,23 @@ const slugs = [
         /Meet us/,
       );
       await page.getByRole("button", { name: "Back to our story" }).click();
+    }
+    if (slug === "the-fan") {
+      await page.getByRole("button", { name: "The day", exact: true }).click();
+      assert.match(
+        await page.locator(".fan-left").getAttribute("class"),
+        /fan-active/,
+      );
+      await page
+        .getByRole("button", { name: "The place", exact: true })
+        .click();
+      assert.match(
+        await page.locator(".fan-right").getAttribute("class"),
+        /fan-active/,
+      );
+      await page
+        .getByRole("button", { name: "The couple", exact: true })
+        .click();
     }
     if (slug === "the-garden") {
       await page.getByLabel("Move the sunlight").fill("80");
@@ -96,11 +118,54 @@ const slugs = [
     );
   }
   await page.goto(`${base}/designs/`, { waitUntil: "networkidle" });
-  assert.equal(await page.locator(".concept-preview").count(), 5);
+  assert.equal(await page.locator(".concept-preview").count(), 10);
   await page.screenshot({
     path: "output/design-checks/collection-mobile.png",
     fullPage: true,
   });
+  await page.getByRole("button", { name: "5 new ideas", exact: true }).click();
+  assert.equal(await page.locator(".concept-preview").count(), 5);
+  await page
+    .getByRole("button", { name: "Shortlist The Vellum Wrap", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Shortlist A Moment in Glass", exact: true })
+    .click();
+  await page
+    .getByLabel("Your thoughts", { exact: true })
+    .fill("We love the vellum, with the frame's rose details.");
+  await page.reload({ waitUntil: "networkidle" });
+  assert.equal(
+    await page.getByLabel("Your thoughts", { exact: true }).inputValue(),
+    "We love the vellum, with the frame's rose details.",
+  );
+  await page
+    .getByRole("button", { name: "Your shortlist (2)", exact: true })
+    .click();
+  assert.equal(await page.locator(".concept-preview").count(), 2);
+  await page.getByRole("button", { name: "Copy our feedback" }).click();
+  await page
+    .locator(".feedback-status")
+    .filter({ hasText: /Copied|Copy the text/ })
+    .waitFor();
+  assert.match(
+    await page.locator(".feedback-status").innerText(),
+    /Copied|Copy the text/,
+  );
+  const feedback = await page.getByLabel("Feedback to copy").inputValue();
+  assert.match(feedback, /06. The Vellum Wrap/);
+  assert.match(feedback, /10. A Moment in Glass/);
+  assert.match(feedback, /We love the vellum/);
+  await page
+    .getByRole("button", {
+      name: "Remove The Vellum Wrap from shortlist",
+      exact: true,
+    })
+    .click();
+  assert.equal(await page.locator(".concept-preview").count(), 1);
+  await page
+    .getByRole("button", { name: "All 10 designs", exact: true })
+    .click();
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.screenshot({
     path: "output/design-checks/collection-desktop.png",

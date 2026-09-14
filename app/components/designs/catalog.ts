@@ -49,6 +49,56 @@ export const designs = [
     number: "05",
     mood: "Layered arches · botanical shadows · garden light",
   },
+  {
+    slug: "the-vellum",
+    name: "The Vellum Wrap",
+    short: "A soft glimpse of forever.",
+    description:
+      "Lift a translucent vellum wrap to bring a botanical invitation into focus.",
+    action: "Lift the vellum",
+    number: "06",
+    mood: "Translucent paper · rose seal · delicate layers",
+  },
+  {
+    slug: "the-ribbon",
+    name: "Tied Together",
+    short: "Tied together. Forever.",
+    description:
+      "Release a satin ribbon and let its two ends fall away from your invitation.",
+    action: "Untie the ribbon",
+    number: "07",
+    mood: "Ivory cotton · sage satin · a graceful release",
+  },
+  {
+    slug: "the-scroll",
+    name: "The Forever Scroll",
+    short: "Let our story unfold.",
+    description:
+      "Unroll a little parchment scroll between two rose-toned rollers to reveal the wedding day.",
+    action: "Unroll our story",
+    number: "08",
+    mood: "Warm parchment · rolled edges · old-world romance",
+  },
+  {
+    slug: "the-fan",
+    name: "Petals of a Promise",
+    short: "Every little part leads to us.",
+    description:
+      "Fan out a set of botanical keepsake cards: the names, the day, and the place.",
+    action: "Open the petals",
+    number: "09",
+    mood: "Layered cards · botanical print · playful movement",
+  },
+  {
+    slug: "the-frame",
+    name: "A Moment in Glass",
+    short: "A moment to keep forever.",
+    description:
+      "Swing open a glass display frame to reveal a pressed-botanical invitation inside.",
+    action: "Open the frame",
+    number: "10",
+    mood: "Rose metal · glass reflections · pressed foliage",
+  },
 ] as const;
 export type DesignSlug = (typeof designs)[number]["slug"];
 export const artPath = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/designs/botanical-paper.webp`;

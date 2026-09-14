@@ -177,6 +177,91 @@ export default function DesignObject({
           <LeafBranch className="garden-leaves-right" />
         </>
       )}
+      {slug === "the-vellum" && (
+        <>
+          <div className="vellum-card">
+            <InvitationFace />
+          </div>
+          <div className="vellum-wrap">
+            <LeafBranch />
+            <span className="micro">For your eyes, with love</span>
+            <Initials />
+            <Seal />
+          </div>
+        </>
+      )}
+      {slug === "the-ribbon" && (
+        <>
+          <div className="ribbon-card">
+            <InvitationFace />
+          </div>
+          <div className="satin satin-left" />
+          <div className="satin satin-right" />
+          <div className="ribbon-bow">
+            <span />
+            <span />
+            <Seal />
+          </div>
+        </>
+      )}
+      {slug === "the-scroll" && (
+        <>
+          <div className="scroll-paper">
+            <InvitationFace />
+          </div>
+          <div className="scroll-roller roller-top" />
+          <div className="scroll-roller roller-bottom" />
+          <div className="scroll-seal">
+            <Seal />
+          </div>
+        </>
+      )}
+      {slug === "the-fan" && (
+        <>
+          <div
+            className={`fan-card fan-left ${page === 1 ? "fan-active" : ""}`}
+          >
+            <BotanicalPaper />
+            <span className="micro">The day</span>
+            <strong>07</strong>
+            <span>
+              November
+              <br />
+              2026
+            </span>
+          </div>
+          <div
+            className={`fan-card fan-right ${page === 2 ? "fan-active" : ""}`}
+          >
+            <BotanicalPaper />
+            <span className="micro">The place</span>
+            <LeafBranch />
+            <span>
+              Qasr El Dobara
+              <br />
+              Cairo
+            </span>
+          </div>
+          <div className="fan-card fan-center">
+            <InvitationFace />
+          </div>
+          <span className="fan-pin" />
+        </>
+      )}
+      {slug === "the-frame" && (
+        <>
+          <div className="frame-base">
+            <InvitationFace />
+          </div>
+          <div className="glass-door">
+            <span className="glass-glint" />
+            <span className="glass-inscription">Rody & Lody</span>
+            <span className="glass-handle" />
+          </div>
+          <span className="frame-foot foot-left" />
+          <span className="frame-foot foot-right" />
+        </>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 # Rody & Lody — botanical collection
 
-Five mobile invitation prototypes based on the user's September reference: warm ivory paper, muted sage botanical art, dusty rose accents, fine borders, and serif typography. The names/date/venue printed on the reference are example content, not replacements for this couple's details.
+Ten mobile invitation prototypes based on the user's September reference: warm ivory paper, muted sage botanical art, dusty rose accents, fine borders, and serif typography. The names/date/venue printed on the reference are example content, not replacements for this couple's details.
 
 ## Routes and interactions
 
@@ -12,7 +12,7 @@ The home page and `/designs/` show the comparison collection. Each route works a
 - `/designs/the-storybook/`: dusty rose book cover turns; a second page introduces the venue.
 - `/designs/the-garden/`: separated arch/foliage layers open around the invitation; a sunlight slider changes illumination and shadow direction.
 
-The depth is CSS perspective and independent 3D transforms controlled by React/JavaScript, not a WebGL model viewer. All five have click/tap, keyboard opening, swipe-to-open, replay, and reduced-motion support. After opening, the invitation is still and scrollable.
+The depth is CSS perspective and independent 3D transforms controlled by React/JavaScript, not a WebGL model viewer. All ten have click/tap, keyboard opening, swipe-to-open, replay, and reduced-motion support. After opening, the invitation is still and scrollable.
 
 All use Rody first, then Lody; November 7, 2026; Qasr El Dobara Evangelical Church, Cairo. Ceremony time is explicitly unconfirmed. Calendar download is an ALL-DAY date hold, not an invented ceremony time. RSVP remains absent, per the couple's earlier feedback.
 
@@ -37,6 +37,14 @@ Final foliage prompt:
 
 `npm run verify:designs` uses Playwright (install Chromium with `npx playwright install chromium` if necessary). Default target is `http://localhost:3115`; override `DESIGN_BASE_URL` for the GitHub Pages URL including its base path.
 
-Checks all five openings and replay, keyboard access, book pages, sunlight slider, date/venue text, actual .ics download contents, guestbook preview submission, actual photo selection/lightbox/removal, horizontal overflow at 320/390/768/1440 widths, reduced motion, collection links, and browser console errors. Screenshots go to gitignored `output/design-checks/`.
+Checks all ten openings and replay, keyboard access, book pages, sunlight slider, date/venue text, actual .ics download contents, guestbook preview submission, actual photo selection/lightbox/removal, horizontal overflow at 320/390/768/1440 widths, reduced motion, collection links, and browser console errors. Screenshots go to gitignored `output/design-checks/`.
 
 Build with `GITHUB_PAGES=true npm run build`. GitHub Actions publishes the `out/` directory after a push to main. Existing Rany29-coder repo identity remains in place. No Ekklesia files or services are used by the implementation.
+
+## Couple review round (2026-09-14)
+
+Added five distinct openings: `/designs/the-vellum/` (translucent wrap), `/designs/the-ribbon/` (satin release), `/designs/the-scroll/` (extending parchment), `/designs/the-fan/` (pivoted keepsake cards), and `/designs/the-frame/` (hinged glass display).
+
+The collection is now addressed directly to Rody & Lody as Step 01: choose an opening and overall feel. It offers all/new/shortlist filters, favorites from the collection or individual design pages, notes, and copyable feedback for the couple to send in their own chat. No feedback is sent automatically. The versioned browser-local store uses useSyncExternalStore for SSR-safe hydration and cross-tab changes, validates restored data, and falls back to memory when storage is unavailable. Existing guestbook/photo previews remain distinct and unsaved.
+
+Browser coverage also checks shortlist filters, favorites and notes surviving reload, feedback text/copy UI, and removing favorites.
