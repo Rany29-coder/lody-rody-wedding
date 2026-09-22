@@ -15,19 +15,19 @@ const display = Bodoni_Moda({
 export const metadata = {
   title: "Rody & Lody — November 7, 2026",
   description:
-    "Your loved ones are also ours. Join Rody & Lody at 7:00 PM, Kasr El Dobara Evangelical Church, Tahrir Square, Cairo.",
+    "Your loved ones are also ours. Join Rody & Lody at 6:30 PM, Kasr El Dobara Evangelical Church, Tahrir Square, Cairo.",
   icons: {
     icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/invitation/monogram.svg`,
   },
   openGraph: {
     title: "Rody & Lody — You are invited",
-    description: "November 7, 2026 · 7:00 PM · Kasr El Dobara, Cairo",
+    description: "November 7, 2026 · 6:30 PM · Kasr El Dobara, Cairo",
     type: "website",
     images: [
       {
-        url: "https://rany29-coder.github.io/lody-rody-wedding/invitation/invitation-preview.jpg",
-        width: 900,
-        height: 1269,
+        url: "https://rany29-coder.github.io/lody-rody-wedding/invitation/invitation-share-630.jpg",
+        width: 600,
+        height: 844,
         alt: "Rody and Lody — sage and ivory wedding invitation",
       },
     ],

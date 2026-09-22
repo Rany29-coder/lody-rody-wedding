@@ -9,7 +9,7 @@ The couple selected the sage-green, ivory-calligraphy, calla-lily invitation sup
 - Pointer movement gives the flowers subtle depth. Motion can be paused; reduced-motion preferences disable entrance effects and smooth scrolling.
 - Unfold reveals the scripture, ceremony details, countdown, directions, calendar download, and the existing clearly labeled local guestbook/photo previews. Fold returns focus to the opening button.
 - Names and wording follow the selected reference: Rody & Lody, “Would like you to join their wedding ceremony,” and “Your loved ones are also ours!”
-- **Date/time: November 7, 2026, 7:00 PM in Cairo.** The timezone was checked using the runtime's Africa/Cairo time-zone data: 17:00 UTC is 19:00 EET on this date. Countdown and .ics use the actual instant. No ending time is invented; the .ics has DTSTART but no DTEND.
+- **Date/time: November 7, 2026, 6:30 PM in Cairo.** The timezone was checked using the runtime's Africa/Cairo time-zone data: 16:30 UTC is 19:00 EET on this date. Countdown and .ics use the actual instant. No ending time is invented; the .ics has DTSTART but no DTEND.
 - **Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo.** The map remains a location-search link rather than an unverified exact pin.
 - `/designs/` preserves all ten earlier concept previews, shortlist and feedback functionality, with a prominent link to the selected direction. Earlier prototypes retain their historical placeholder copy.
 - Guestbook and photos are not yet shared or stored on a backend. Their preview labels remain visible. RSVP stays absent.
@@ -45,3 +45,5 @@ Header refinement: R + L uses clipped original handwritten initials and plus, wi
 ### Fuller flowers and final copy refinements
 
 Hero bouquets doubled from two to four and enlarged about 20%; closing bouquets doubled from one to two. Text/actions retain higher stacking order. Closing uses the same original wordmark, static and with unique IDs. Requested blessing, closing tagline and wish-intro line breaks are explicit. Confetti repeats at the existing particle count/duration with staggered phases. Pause/resume moved out of the header into an always-available control below the invitation; reduced motion still disables animation. The selected guestbook removes the long introductory preview note and retains a concise, truthful preview label beside the submission area; archived designs keep their original copy. Mobile screenshots and full selected-route checks pass.
+
+- Ceremony time updated at the couple’s request to 6:30 PM Cairo (16:30 UTC) on November 7, 2026; visible time, countdown, calendar and share text updated together.

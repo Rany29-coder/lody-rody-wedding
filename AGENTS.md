@@ -8,7 +8,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 - `/designs/` is the archived ten-design couple review page. Ten statically generated routes live at `/designs/[slug]/`; catalog and scoped CSS are in `app/components/designs/`.
 - Read `docs/DESIGN_COLLECTION.md` for design interactions, generated-art prompts, limitations, and verification commands.
-- All new concepts use ivory/sage/dusty rose from the user's reference. Keep Rody first, November 7, 2026, KDEC in Cairo. The new selected invitation confirms 7:00 PM Cairo time; old concept routes are historical previews.
+- All new concepts use ivory/sage/dusty rose from the user's reference. Keep Rody first, November 7, 2026, KDEC in Cairo. The new selected invitation confirms 6:30 PM Cairo time; old concept routes are historical previews.
 - RSVP is intentionally absent. Guestbook and photo interactions are explicitly labeled local design previews. Do not imply shared persistence before a backend is implemented.
 - `npm run verify:designs` verifies all concepts; `GITHUB_PAGES=true npm run build` tests the deployed base path.
 
@@ -17,7 +17,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Selected invitation (2026-09-22)
 
 - `/` and `/invitation/` now serve the chosen sage/ivory/calla-lily design. See `docs/SELECTED_INVITATION.md` for implementation, asset prompts and verification.
-- Wedding time is **2026-11-07T19:00:00+02:00** (17:00 UTC). Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo. Do not invent an end time.
+- Wedding time is **2026-11-07T18:30:00+02:00** (16:30 UTC). Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo. Do not invent an end time.
 - Live accessible text, layered art, continuous confetti, unfolding details, reduced-motion controls, native share with clipboard fallback, timed .ics, and a real countdown. `node scripts/verify-selected.cjs` checks this route separately from the archived collection.
 
 - Hero wordmark uses the supplied original JPEG through an SVG ink filter; do not replace with a script font. Date/time are displayed only in the hero (calendar/countdown retained).
@@ -25,3 +25,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Mobile hero adapts to small viewport height; keep date/time/venue and unfold action visible on 320×568. Original artwork is reused in the header, with unique SVG IDs and no animation there. Share feedback clears automatically.
 
 - Floral update: four larger hero bouquets, two closing bouquets; closing reuses static original wordmark. Confetti loops; pause/resume is below the invitation. Selected guestbook uses `refined` layout while keeping its local-preview status clear.
+
+- Ceremony time updated at the couple’s request to 6:30 PM Cairo (16:30 UTC) on November 7, 2026; visible time, countdown, calendar and share text updated together.

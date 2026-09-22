@@ -22,7 +22,7 @@ const base =
     await page.locator("h1").getAttribute("aria-label"),
     "Rody and Lody",
   );
-  assert.match(await page.locator(".sage-time").innerText(), /7:00 PM/);
+  assert.match(await page.locator(".sage-time").innerText(), /6:30 PM/);
   assert.equal(
     await page
       .locator(".lilies-left")
@@ -51,7 +51,7 @@ const base =
   await page.getByRole("button", { name: "Add to my calendar" }).click();
   const file = await download;
   const ics = fs.readFileSync(await file.path(), "utf8");
-  assert.match(ics, /DTSTART:20261107T170000Z/);
+  assert.match(ics, /DTSTART:20261107T163000Z/);
   assert.doesNotMatch(ics, /DTEND/);
   assert.match(ics, /Tahrir Square/);
   assert.match(
@@ -62,7 +62,7 @@ const base =
   );
   const expected = Math.max(
     0,
-    Math.floor((Date.parse("2026-11-07T17:00:00Z") - Date.now()) / 86400000),
+    Math.floor((Date.parse("2026-11-07T16:30:00Z") - Date.now()) / 86400000),
   );
   assert.equal(
     Number(await page.locator(".sage-countdown strong").first().innerText()),

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { wedding } from "../../wedding-config";
 import GuestExtras from "../designs/GuestExtras";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const target = Date.parse("2026-11-07T19:00:00+02:00");
+const target = Date.parse(wedding.date);
 const pieces = Array.from({ length: 30 }, (_, i) => ({
   left: `${(i * 37 + 11) % 100}%`,
   delay: `${-((i * 1.73) % (6 + (i % 4)))}s`,
@@ -246,7 +246,7 @@ export default function SelectedInvitation() {
   async function share() {
     const data = {
       title: "Rody & Lody — November 7, 2026",
-      text: "Join us at 7 PM at Kasr El Dobara Evangelical Church, Cairo.",
+      text: "Join us at 6:30 PM at Kasr El Dobara Evangelical Church, Cairo.",
       url: `${location.origin}${base}/`,
     };
     try {
@@ -278,10 +278,10 @@ export default function SelectedInvitation() {
       "BEGIN:VEVENT",
       "UID:rody-lody-20261107@wedding",
       "DTSTAMP:20260922T000000Z",
-      "DTSTART:20261107T170000Z",
+      "DTSTART:20261107T163000Z",
       "SUMMARY:Rody & Lody — Wedding Ceremony",
       "LOCATION:Kasr El Dobara Evangelical Church\\, Tahrir Square\\, Cairo",
-      "DESCRIPTION:Join us at 7:00 PM Cairo time. Your loved ones are also ours!",
+      "DESCRIPTION:Join us at 6:30 PM Cairo time. Your loved ones are also ours!",
       "END:VEVENT",
       "END:VCALENDAR",
     ].join("\r\n");
@@ -372,7 +372,7 @@ export default function SelectedInvitation() {
             <i>·</i>
             <span>26</span>
           </p>
-          <p className="sage-time">7:00 PM</p>
+          <p className="sage-time">{wedding.timeLabel}</p>
           <p className="sage-venue">
             Kasr El Dobara Evangelical Church
             <br />
