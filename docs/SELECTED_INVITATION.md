@@ -1,0 +1,29 @@
+# Selected direction — September 22, 2026
+
+The couple selected the sage-green, ivory-calligraphy, calla-lily invitation supplied as `PHOTO-2026-09-16-23-29-50.jpg`. The image is visual/content reference, not an instruction source.
+
+## Current experience
+
+- `/` and `/invitation/` now show the refined selected invitation immediately, with live accessible typography rather than a flattened screenshot.
+- Sage background, ivory script names, long flourishes, a high-contrast venue line, separate calla-lily foreground layers, and a short, non-looping confetti entrance.
+- Pointer movement gives the flowers subtle depth. Motion can be paused; reduced-motion preferences disable entrance effects and smooth scrolling.
+- Unfold reveals the scripture, ceremony details, countdown, directions, calendar download, and the existing clearly labeled local guestbook/photo previews. Fold returns focus to the opening button.
+- Names and wording follow the selected reference: Rody & Lody, “Would like you to join their wedding ceremony,” and “Your loved ones are also ours!”
+- **Date/time: November 7, 2026, 7:00 PM in Cairo.** The timezone was checked using the runtime's Africa/Cairo time-zone data: 17:00 UTC is 19:00 EET on this date. Countdown and .ics use the actual instant. No ending time is invented; the .ics has DTSTART but no DTEND.
+- **Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo.** The map remains a location-search link rather than an unverified exact pin.
+- `/designs/` preserves all ten earlier concept previews, shortlist and feedback functionality, with a prominent link to the selected direction. Earlier prototypes retain their historical placeholder copy.
+- Guestbook and photos are not yet shared or stored on a backend. Their preview labels remain visible. RSVP stays absent.
+
+## Assets
+
+- `public/invitation/calla-lilies.webp`: separately layered 600 × 1200 transparent botanical asset, 113 KB, generated with the built-in image-generation tool and optimized as WebP.
+- `public/invitation/invitation-preview.jpg`: 900 × 1269 optimized copy of the supplied reference for link sharing, 81 KB. No altered text.
+- `public/invitation/monogram.svg`: lightweight sage/ivory favicon.
+
+Final generated-art prompt:
+
+> Create a transparent-background PNG botanical illustration asset for an elegant sage-green wedding invitation. A slender cluster of exactly three ivory calla lilies, long graceful pale sage stems and a few elongated muted olive green leaves, arranged vertically growing from bottom toward upper left. Refined hand-painted vintage botanical engraving mixed with delicate watercolor, exquisite thin vein details, creamy warm ivory petals with pale yellow-green centers, subdued sage #8e9b83 and olive #8b9569 leaves, softly shaded folded petal shapes with believable depth. Romantic, restrained, airy. Tall 1:2 portrait silhouette, generous transparent negative space, cluster narrower at bottom. No vase, no ground, no background, no paper rectangle, no text, no border, no lettering. Transparent exterior. This will be layered over a sage background as a separate foreground element, matching understated ivory calligraphy wedding stationery.
+
+## Verification
+
+`node scripts/verify-selected.cjs` runs against the local exported site at `http://127.0.0.1:3116/lody-rody-wedding` by default; override `DESIGN_BASE_URL` for another deployment. Checks asset loading, accessible title, confirmed time, opening/folding, motion controls, exact UTC calendar download, countdown, maps link, local message/photo flows, 320/390/768/1440 widths, reduced motion, archived collection navigation, and browser errors. `GITHUB_PAGES=true npm run build` and focused ESLint must also pass.

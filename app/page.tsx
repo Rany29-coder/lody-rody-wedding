@@ -1,1 +1,1 @@
-export { default, metadata } from "./designs/page";
+export { default, metadata, viewport } from "./invitation/page";

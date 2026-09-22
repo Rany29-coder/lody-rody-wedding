@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "verify:designs": "node scripts/verify-designs.cjs"
+    "verify:designs": "node scripts/verify-designs.cjs",
+    "verify:selected": "node scripts/verify-selected.cjs"
   },
   "dependencies": {
     "motion": "^12.40.0",

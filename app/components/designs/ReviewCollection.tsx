@@ -50,6 +50,12 @@ export default function ReviewCollection() {
         <Link href="/designs/">R & L</Link>
         <a href="#your-choice">Your shortlist · {favorites.length}</a>
       </header>
+      <aside className="selected-direction">
+        <span>Rody & Lody’s chosen direction</span>
+        <Link href="/invitation/">
+          Sage, ivory & calla lilies — see the refined invitation ↗
+        </Link>
+      </aside>
       <section className="collection-intro">
         <p className="eyebrow">Made just for Rody & Lody · Step 01</p>
         <h1>

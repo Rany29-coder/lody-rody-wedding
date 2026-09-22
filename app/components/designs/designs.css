@@ -2056,3 +2056,22 @@
 .fan-controls button[aria-pressed="true"] {
   background: #e1e7d6;
 }
+
+.selected-direction {
+  padding: 24px 6vw;
+  background: #dce3d2;
+  color: #344b37;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 25px;
+  align-items: center;
+}
+.selected-direction span {
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+}
+.selected-direction a {
+  font-size: 21px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}

@@ -6,10 +6,16 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Wedding design collection (2026-09-14)
 
-- `/` and `/designs/` are the ten-design couple review page. Ten statically generated routes live at `/designs/[slug]/`; catalog and scoped CSS are in `app/components/designs/`.
+- `/designs/` is the archived ten-design couple review page. Ten statically generated routes live at `/designs/[slug]/`; catalog and scoped CSS are in `app/components/designs/`.
 - Read `docs/DESIGN_COLLECTION.md` for design interactions, generated-art prompts, limitations, and verification commands.
-- All new concepts use ivory/sage/dusty rose from the user's reference. Keep Rody first, November 7, 2026, KDEC in Cairo. The ceremony time is unconfirmed; date-hold calendar download must stay all-day until confirmed.
+- All new concepts use ivory/sage/dusty rose from the user's reference. Keep Rody first, November 7, 2026, KDEC in Cairo. The new selected invitation confirms 7:00 PM Cairo time; old concept routes are historical previews.
 - RSVP is intentionally absent. Guestbook and photo interactions are explicitly labeled local design previews. Do not imply shared persistence before a backend is implemented.
 - `npm run verify:designs` verifies all concepts; `GITHUB_PAGES=true npm run build` tests the deployed base path.
 
 - Couple review: `ReviewCollection.tsx` and `useReviewStore.ts` provide browser-local favorites/notes and explicit copy-to-chat feedback. No messages are automatically sent. The collection is Step 01: choose the opening/feel before developing the next stages.
+
+## Selected invitation (2026-09-22)
+
+- `/` and `/invitation/` now serve the chosen sage/ivory/calla-lily design. See `docs/SELECTED_INVITATION.md` for implementation, asset prompts and verification.
+- Wedding time is **2026-11-07T19:00:00+02:00** (17:00 UTC). Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo. Do not invent an end time.
+- Live accessible text, layered art, brief confetti, unfolding details, reduced-motion controls, native share with clipboard fallback, timed .ics, and a real countdown. `node scripts/verify-selected.cjs` checks this route separately from the archived collection.
