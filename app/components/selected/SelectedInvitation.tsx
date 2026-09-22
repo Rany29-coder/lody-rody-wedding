@@ -450,7 +450,6 @@ export default function SelectedInvitation() {
             </p>
           </section>
           <section id="celebration" className="sage-celebration">
-            <p className="eyebrow">Save a little space for our big day</p>
             <h2>
               Come celebrate
               <br />

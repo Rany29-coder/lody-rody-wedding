@@ -47,3 +47,5 @@ Header refinement: R + L uses clipped original handwritten initials and plus, wi
 Hero bouquets doubled from two to four and enlarged about 20%; closing bouquets doubled from one to two. Text/actions retain higher stacking order. Closing uses the same original wordmark, static and with unique IDs. Requested blessing, closing tagline and wish-intro line breaks are explicit. Confetti repeats at the existing particle count/duration with staggered phases. Pause/resume moved out of the header into an always-available control below the invitation; reduced motion still disables animation. The selected guestbook removes the long introductory preview note and retains a concise, truthful preview label beside the submission area; archived designs keep their original copy. Mobile screenshots and full selected-route checks pass.
 
 - Ceremony time updated at the couple’s request to 6:30 PM Cairo (16:30 UTC) on November 7, 2026; visible time, countdown, calendar and share text updated together.
+
+Removed the “Save a little space for our big day” eyebrow at the couple’s request, leaving the celebration heading and practical details.
