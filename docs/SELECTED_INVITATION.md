@@ -49,3 +49,5 @@ Hero bouquets doubled from two to four and enlarged about 20%; closing bouquets 
 - Ceremony time updated at the couple’s request to 6:30 PM Cairo (16:30 UTC) on November 7, 2026; visible time, countdown, calendar and share text updated together.
 
 Removed the “Save a little space for our big day” eyebrow at the couple’s request, leaving the celebration heading and practical details.
+
+Latest couple request: removed the visible Pause motion control and the circled wish/photo helper notes, and reduced the gap between wishes and memories to 36px. Preview action labels and honest post-action status remain; no backend implied. Reduced-motion preference still respected. Build, lint, selected journey and absence/spacing checks pass.

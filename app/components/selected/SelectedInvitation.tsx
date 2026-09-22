@@ -195,7 +195,6 @@ function Names({
 }
 export default function SelectedInvitation() {
   const [opened, setOpened] = useState(false);
-  const [paused, setPaused] = useState(false);
   const [shareStatus, setShareStatus] = useState("");
   const [remaining, setRemaining] = useState<number | null>(null);
   const details = useRef<HTMLElement>(null);
@@ -297,7 +296,6 @@ export default function SelectedInvitation() {
   function move(e: React.PointerEvent<HTMLElement>) {
     if (
       e.pointerType !== "mouse" ||
-      paused ||
       matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
@@ -317,9 +315,7 @@ export default function SelectedInvitation() {
           Math.floor(remaining / 1000) % 60,
         ];
   return (
-    <main
-      className={`design-world selected-world ${paused ? "motion-paused" : ""}`}
-    >
+    <main className="design-world selected-world">
       <header className="sage-header">
         <a href="#home" aria-label="Rody and Lody, back to invitation">
           <Names compact />
@@ -510,11 +506,6 @@ export default function SelectedInvitation() {
           </footer>
         </div>
       </section>
-      <div className="motion-settings">
-        <button onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
-          {paused ? "Resume motion" : "Pause motion"}
-        </button>
-      </div>
     </main>
   );
 }

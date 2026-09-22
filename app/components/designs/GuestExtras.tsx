@@ -103,11 +103,6 @@ export default function GuestExtras({
           <button className="primary-action" type="submit">
             Preview your wish <span>↗</span>
           </button>
-          {refined && (
-            <small className="wish-preview-label">
-              Preview only · not sent to the couple.
-            </small>
-          )}
           <p role="status">{status}</p>
         </form>
         <div className="wishes-list">
@@ -131,7 +126,9 @@ export default function GuestExtras({
         </p>
         <label className="photo-drop">
           <span className="photo-icon">＋</span>
-          <strong>Add your photographs</strong>
+          <strong>
+            {refined ? "Preview your photographs" : "Add your photographs"}
+          </strong>
           <span>JPG, PNG, WebP or GIF · up to 10 MB each</span>
           <input
             aria-label="Add photo previews"
@@ -141,10 +138,12 @@ export default function GuestExtras({
             onChange={files}
           />
         </label>
-        <p className="demo-note">
-          Local previews only · photos are not uploaded and disappear on
-          refresh.
-        </p>
+        {!refined && (
+          <p className="demo-note">
+            Local previews only · photos are not uploaded and disappear on
+            refresh.
+          </p>
+        )}
         <p role="status">{photoStatus}</p>
         <div className="photo-grid">
           {photos.map((p) => (

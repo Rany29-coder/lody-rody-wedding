@@ -566,14 +566,6 @@
   outline: 2px solid #233e29 !important;
   outline-offset: 5px !important;
 }
-.motion-paused *,
-.motion-paused *:before {
-  animation-play-state: paused !important;
-}
-.motion-paused .calla-lilies {
-  transition: none !important;
-  --drift: 0px;
-}
 @media (min-width: 1100px) {
   .sage-hero {
     padding-bottom: 70px;
@@ -948,26 +940,6 @@
 .selected-world .wishes-section .section-intro {
   margin-bottom: 20px;
 }
-.wish-preview-label {
-  display: block;
-  font-family: var(--font-condensed), sans-serif;
-  font-size: 13px;
-  margin-top: 8px;
-  color: #53634b;
-  text-align: center;
-}
-.motion-settings {
-  text-align: center;
-  padding: 10px 20px;
-  background: #819076;
-}
-.motion-settings button {
-  min-height: 44px;
-  padding: 8px 16px;
-  font-family: var(--font-condensed), sans-serif;
-  color: #263e2a;
-  font-size: 14px;
-}
 @media (max-width: 600px) {
   .sage-hero .lilies-left {
     width: 195px;
@@ -1005,4 +977,17 @@
   .selected-world .wishes-section h2 {
     margin-bottom: 18px;
   }
+}
+
+.selected-world .wishes-section {
+  padding-bottom: 14px;
+}
+.selected-world .memories-section {
+  padding-top: 22px;
+}
+.selected-world .wishes-list {
+  margin-bottom: 0;
+}
+.selected-world .empty-wish {
+  margin-bottom: 0;
 }

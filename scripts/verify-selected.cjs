@@ -35,14 +35,12 @@ const base =
     fullPage: true,
   });
   assert.equal(await page.locator("#our-invitation").isVisible(), false);
-  await page.getByRole("button", { name: "Pause motion", exact: true }).tap();
   assert.equal(
     await page
-      .locator(".selected-world")
-      .evaluate((e) => e.classList.contains("motion-paused")),
-    true,
+      .getByRole("button", { name: "Pause motion", exact: true })
+      .count(),
+    0,
   );
-  await page.getByRole("button", { name: "Resume motion", exact: true }).tap();
   await page.getByRole("button", { name: "Unfold the invitation" }).tap();
   await page.waitForTimeout(1300);
   assert.equal(await page.locator("#our-invitation").isVisible(), true);
@@ -134,7 +132,7 @@ const base =
   assert.deepEqual(errors, []);
   await browser.close();
   console.log(
-    "PASS: chosen design, artwork, unfolding, pause/reduced motion, timed Cairo calendar, countdown, directions, local guestbook/photos, 320–1440px layouts, archived collection, zero browser errors.",
+    "PASS: chosen design, artwork, unfolding, reduced motion, timed Cairo calendar, countdown, directions, local guestbook/photos, 320–1440px layouts, archived collection, zero browser errors.",
   );
 })().catch((e) => {
   console.error(e);
