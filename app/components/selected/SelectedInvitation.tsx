@@ -26,22 +26,65 @@ function Lilies({ className = "" }: { className?: string }) {
 }
 function Names({ compact = false }: { compact?: boolean }) {
   const id = useId();
+  if (compact) {
+    const ink = `url(#${id}-initial-ink)`;
+    const original = (
+      <image
+        href={`${base}/invitation/original-wordmark.jpeg`}
+        width="912"
+        height="486"
+        filter={ink}
+      />
+    );
+    return (
+      <span className="header-wordmark">
+        <svg
+          viewBox="0 0 410 235"
+          aria-hidden="true"
+          className="original-initials"
+        >
+          <defs>
+            <filter id={`${id}-initial-ink`} colorInterpolationFilters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  2 4 .667 0 -4.5"
+              />
+            </filter>
+            <clipPath id={`${id}-initial-r`}>
+              <path d="M420 35 H610 V135 H560 V232 H420 Z" />
+            </clipPath>
+            <clipPath id={`${id}-initial-l`}>
+              <path d="M250 230 H335 V320 L308 385 L390 395 V440 H250 Z" />
+            </clipPath>
+          </defs>
+          <g transform="translate(-410 -30)" clipPath={`url(#${id}-initial-r)`}>
+            {original}
+          </g>
+          <svg
+            x="195"
+            y="108"
+            width="32"
+            height="30"
+            viewBox="425 235 45 35"
+            overflow="hidden"
+          >
+            {original}
+          </svg>
+          <g transform="translate(15 -195)" clipPath={`url(#${id}-initial-l)`}>
+            {original}
+          </g>
+        </svg>
+      </span>
+    );
+  }
   const artwork = (
-    <svg
-      className={`original-wordmark ${compact ? "is-static" : ""}`}
-      viewBox="0 0 912 486"
-      aria-hidden="true"
-    >
+    <svg className="original-wordmark" viewBox="0 0 912 486" aria-hidden="true">
       <defs>
         <filter id={`${id}-wordmark-ink`} colorInterpolationFilters="sRGB">
           {/* Isolate the light ink at render time; keep the original artwork intact. */}
           <feColorMatrix
             type="matrix"
-            values={
-              compact
-                ? "0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  1.5 3 .5 0 -3.2"
-                : "0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  3 6 1 0 -7"
-            }
+            values="0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  3 6 1 0 -7"
           />
         </filter>
       </defs>
@@ -128,9 +171,7 @@ function Names({ compact = false }: { compact?: boolean }) {
       </g>
     </svg>
   );
-  return compact ? (
-    <span className="header-wordmark">{artwork}</span>
-  ) : (
+  return (
     <h1 className="sage-names" aria-label="Rody and Lody">
       {artwork}
     </h1>
@@ -376,14 +417,18 @@ export default function SelectedInvitation() {
               <br />
               <em>One beautiful promise.</em>
             </h2>
-            <blockquote>
-              “So they are no longer two, but one.
-              <br />
-              Therefore what God has joined together,
-              <br />
-              let man not separate.”
-            </blockquote>
-            <p className="eyebrow">Matthew 19:6</p>
+            <figure className="wedding-scripture">
+              <blockquote>
+                “So they are no longer two, but one.
+                <br />
+                Therefore what God has joined together,
+                <br />
+                let man not separate.”
+              </blockquote>
+              <figcaption className="eyebrow verse-reference">
+                Matthew 19:6
+              </figcaption>
+            </figure>
             <p className="blessing-note">
               It would mean the world to celebrate this beginning with you.
             </p>

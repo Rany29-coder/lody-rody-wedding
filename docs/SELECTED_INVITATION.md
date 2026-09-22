@@ -39,3 +39,5 @@ Each reveal is clipped to a whole name, using the gap between the original handw
 ### Couple feedback — mobile refinement
 
 Removed the repeated hero loved-ones tagline (retained in the closing), reused the original handwritten artwork for the static header logo with unique SVG IDs, and masked the small unwanted spur at the R/flourish junction without modifying the source JPEG. Mobile spacing adapts to the small viewport height, including embedded browser chrome. At 320×568, 375×667, 390×700 and 430×800 the time, venue and unfold button fit without scrolling. Share feedback is a bottom toast, dismissed after three seconds (seven for fallback instructions); repeated sharing resets the timeout, and unmount clears it. Build, lint, selected journey checks and clipboard timeout checks passed.
+
+Header refinement: R + L uses clipped original handwritten initials and plus, without the name flourishes. Scripture and Matthew 19:6 are grouped in a figure with four pixels between verse and citation. Mobile screenshots, build and lint checked.
