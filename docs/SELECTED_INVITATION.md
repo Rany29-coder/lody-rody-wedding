@@ -32,4 +32,4 @@ Final generated-art prompt:
 
 The hero uses the couple’s original supplied JPEG (`public/invitation/original-wordmark.jpeg`), not a replacement font. An SVG color filter isolates the pale lettering at display time, preserving the source file and the original Rody + Lody strokes/flourishes. The source resolution limits sharpness at large sizes. The date and time appear once, in the hero; repeated detail and footer dates were removed. Calendar export and countdown remain unchanged. Verified production build, lint, mobile screenshot, and the selected invitation interaction suite.
 
-The original wordmark has a gentle 1.8-second entrance and an eight-second, five-pixel floating motion. Both respect Pause motion and reduced-motion preferences.
+The original wordmark now reveals through two animated SVG ink masks from opposite sides, moving gently inward and meeting in the middle over four seconds. This gives a handwriting-style reveal of the original artwork; it is not a font replacement. The full source mark is revealed at completion. Pause motion and reduced-motion preferences are respected.

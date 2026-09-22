@@ -41,12 +41,72 @@ function Names() {
             />
           </filter>
         </defs>
-        <image
-          href={`${base}/invitation/original-wordmark.jpeg`}
-          width="912"
-          height="486"
-          filter="url(#wordmark-ink)"
-        />
+        <defs>
+          <clipPath id="ink-left-half">
+            <rect width="456" height="486" />
+          </clipPath>
+          <clipPath id="ink-right-half">
+            <rect x="456" width="456" height="486" />
+          </clipPath>
+          <mask
+            id="ink-from-left"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="912"
+            height="486"
+          >
+            <path
+              className="ink-trace"
+              pathLength="1"
+              d="M-70 250 C70 295 105 110 240 165 S350 220 430 145 L510 35 L460 250 L365 230 L290 320 L260 425 L395 350 L510 430"
+            />
+            <rect
+              className="ink-complete"
+              width="912"
+              height="486"
+              fill="white"
+            />
+          </mask>
+          <mask
+            id="ink-from-right"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="912"
+            height="486"
+          >
+            <path
+              className="ink-trace"
+              pathLength="1"
+              d="M982 280 C800 220 835 420 640 350 L465 350 L550 445 L700 240 L755 140 L620 195 L520 140 L605 35 L455 80 L395 250"
+            />
+            <rect
+              className="ink-complete"
+              width="912"
+              height="486"
+              fill="white"
+            />
+          </mask>
+        </defs>
+        <g className="ink-side ink-left" clipPath="url(#ink-left-half)">
+          <image
+            href={`${base}/invitation/original-wordmark.jpeg`}
+            width="912"
+            height="486"
+            filter="url(#wordmark-ink)"
+            mask="url(#ink-from-left)"
+          />
+        </g>
+        <g className="ink-side ink-right" clipPath="url(#ink-right-half)">
+          <image
+            href={`${base}/invitation/original-wordmark.jpeg`}
+            width="912"
+            height="486"
+            filter="url(#wordmark-ink)"
+            mask="url(#ink-from-right)"
+          />
+        </g>
       </svg>
     </h1>
   );
