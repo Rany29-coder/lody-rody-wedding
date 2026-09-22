@@ -30,4 +30,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 - Latest cleanup: visible pause control removed at user request; OS reduced-motion remains supported. Circled helper notes removed from selected forms; action labels and post-action status still accurately describe local previews. Gap between wishes and memories reduced.
 
-- Unfold uses a 2.1-second two-panel 3D paper transition before revealing/focusing details; reduced-motion skips it. Tests must wait for details visibility instead of a fixed short sleep.
+- Unfold uses a 3-second two-panel 3D paper transition before revealing/focusing details; reduced-motion skips it. Tests must wait for details visibility instead of a fixed short sleep.
+
+- Continuous opening refinement: after the panels open, the card zooms to fill the viewport. Details are positioned underneath at 1.8s while the cover is opaque; the final crossfade reveals the page without a separate scroll/cut. Zoom adapts to viewport size. Verified sequence and full selected-route checks.

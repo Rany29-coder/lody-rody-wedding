@@ -196,6 +196,7 @@ function Names({
 export default function SelectedInvitation() {
   const [opened, setOpened] = useState(false);
   const [unfolding, setUnfolding] = useState(false);
+  const [unfoldZoom, setUnfoldZoom] = useState(2);
   const unfoldTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(
     () => () => {
@@ -217,9 +218,9 @@ export default function SelectedInvitation() {
     const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
   }, []);
-  function finishOpening() {
+  function finishOpening(keepCover = false) {
     setOpened(true);
-    setUnfolding(false);
+    if (!keepCover) setUnfolding(false);
     setCelebration((n) => n + 1);
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
@@ -237,8 +238,18 @@ export default function SelectedInvitation() {
       finishOpening();
       return;
     }
+    setUnfoldZoom(
+      Math.max(
+        window.innerWidth / Math.min(window.innerWidth * 0.66, 350),
+        window.innerHeight / Math.min(window.innerHeight * 0.57, 440),
+      ) * 1.1,
+    );
     setUnfolding(true);
-    unfoldTimer.current = setTimeout(finishOpening, 2100);
+    // Position the real page underneath the opaque card before the zoom reveals it.
+    unfoldTimer.current = setTimeout(() => {
+      finishOpening(true);
+      unfoldTimer.current = setTimeout(() => setUnfolding(false), 1200);
+    }, 1800);
   }
   function close() {
     setOpened(false);
@@ -336,6 +347,7 @@ export default function SelectedInvitation() {
       {unfolding && (
         <div
           className="unfold-stage"
+          style={{ "--unfold-zoom": unfoldZoom } as CSSProperties}
           role="status"
           aria-label="Unfolding your invitation"
         >

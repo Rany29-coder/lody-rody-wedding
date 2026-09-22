@@ -989,7 +989,7 @@
   overflow: hidden;
   background: #4f6249e8;
   perspective: 1400px;
-  animation: unfold-stage-fade 2.1s both;
+  animation: unfold-stage-fade 3s both;
   touch-action: none;
 }
 .fold-scene {
@@ -997,7 +997,7 @@
   width: min(66vw, 350px);
   height: min(57svh, 440px);
   transform-style: preserve-3d;
-  animation: unfold-card-lift 2.1s both;
+  animation: unfold-card-lift 3s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 .fold-inside {
   position: absolute;
@@ -1130,19 +1130,21 @@
   0% {
     transform: translateY(30px) rotateX(10deg) scale(0.92);
   }
-  25% {
+  18%,
+  58% {
     transform: translateY(0) rotateX(0) scale(1);
   }
+  90%,
   100% {
-    transform: translateY(0) rotateX(0) scale(1.03);
+    transform: translateY(0) rotateX(0) scale(var(--unfold-zoom));
   }
 }
 @keyframes unfold-stage-fade {
   0% {
     opacity: 0;
   }
-  12%,
-  88% {
+  8%,
+  84% {
     opacity: 1;
   }
   100% {

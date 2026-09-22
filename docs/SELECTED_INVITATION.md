@@ -54,4 +54,6 @@ Latest couple request: removed the visible Pause motion control and the circled 
 
 ### Physical unfolding interaction
 
-Unfold now runs a 2.1-second gatefold transition: two independently hinged covers, original artwork split across the front, paper backs, inner invitation and depth/shadows. Details remain hidden until the opening completes, then scroll into view and receive focus. Repeat taps are disabled during unfolding, the timer is cleaned up on unmount, and reduced-motion opens directly. Fold/reopen remains available. Build, lint, full selected journey and a mobile midpoint screenshot/sequence check passed.
+Unfold now runs a 3-second gatefold transition: two independently hinged covers, original artwork split across the front, paper backs, inner invitation and depth/shadows. Details remain hidden until the opening completes, then scroll into view and receive focus. Repeat taps are disabled during unfolding, the timer is cleaned up on unmount, and reduced-motion opens directly. Fold/reopen remains available. Build, lint, full selected journey and a mobile midpoint screenshot/sequence check passed.
+
+- Continuous opening refinement: after the panels open, the card zooms to fill the viewport. Details are positioned underneath at 1.8s while the cover is opaque; the final crossfade reveals the page without a separate scroll/cut. Zoom adapts to viewport size. Verified sequence and full selected-route checks.
