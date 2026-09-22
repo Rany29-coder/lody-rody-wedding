@@ -28,21 +28,25 @@ function Names() {
   return (
     <h1 className="sage-names" aria-label="Rody and Lody">
       <svg
-        className="name-flourish flourish-left"
-        viewBox="0 0 260 80"
+        className="original-wordmark"
+        viewBox="0 0 912 486"
         aria-hidden="true"
       >
-        <path d="M0 60C75 95 115 0 160 32C200 69 95 80 128 37C162-5 201 64 260 22" />
-      </svg>
-      <span className="name-rody">Rody</span>
-      <span className="name-plus">&</span>
-      <span className="name-lody">Lody</span>
-      <svg
-        className="name-flourish flourish-right"
-        viewBox="0 0 260 80"
-        aria-hidden="true"
-      >
-        <path d="M0 60C75 95 115 0 160 32C200 69 95 80 128 37C162-5 201 64 260 22" />
+        <defs>
+          <filter id="wordmark-ink" colorInterpolationFilters="sRGB">
+            {/* Isolate the light ink at render time; keep the original artwork intact. */}
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  3 6 1 0 -7"
+            />
+          </filter>
+        </defs>
+        <image
+          href={`${base}/invitation/original-wordmark.jpeg`}
+          width="912"
+          height="486"
+          filter="url(#wordmark-ink)"
+        />
       </svg>
     </h1>
   );
@@ -290,20 +294,10 @@ export default function SelectedInvitation() {
           <section id="celebration" className="sage-celebration">
             <p className="eyebrow">Save a little space for our big day</p>
             <h2>
-              Saturday,
+              Come celebrate
               <br />
-              <em>November seventh.</em>
+              <em>with us.</em>
             </h2>
-            <div className="sage-event-grid">
-              <div>
-                <span className="event-number">07</span>
-                <p>November 2026</p>
-              </div>
-              <div>
-                <span className="event-number">7:00</span>
-                <p>PM · Cairo time</p>
-              </div>
-            </div>
             <p className="ceremony-location">
               Kasr El Dobara
               <br />
@@ -346,7 +340,6 @@ export default function SelectedInvitation() {
             <Lilies />
             <p>With all our love,</p>
             <h2>Rody & Lody</h2>
-            <p className="closing-date">07 · 11 · 26</p>
             <p className="closing-tagline">Your loved ones are also ours!</p>
             <button onClick={share} className="secondary-action">
               Share the invitation ↗

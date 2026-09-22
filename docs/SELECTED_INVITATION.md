@@ -27,3 +27,7 @@ Final generated-art prompt:
 ## Verification
 
 `node scripts/verify-selected.cjs` runs against the local exported site at `http://127.0.0.1:3116/lody-rody-wedding` by default; override `DESIGN_BASE_URL` for another deployment. Checks asset loading, accessible title, confirmed time, opening/folding, motion controls, exact UTC calendar download, countdown, maps link, local message/photo flows, 320/390/768/1440 widths, reduced motion, archived collection navigation, and browser errors. `GITHUB_PAGES=true npm run build` and focused ESLint must also pass.
+
+### Logo and repetition refinement
+
+The hero uses the couple’s original supplied JPEG (`public/invitation/original-wordmark.jpeg`), not a replacement font. An SVG color filter isolates the pale lettering at display time, preserving the source file and the original Rody + Lody strokes/flourishes. The source resolution limits sharpness at large sizes. The date and time appear once, in the hero; repeated detail and footer dates were removed. Calendar export and countdown remain unchanged. Verified production build, lint, mobile screenshot, and the selected invitation interaction suite.
