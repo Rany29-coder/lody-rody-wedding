@@ -29,3 +29,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Ceremony time updated at the couple’s request to 6:30 PM Cairo (16:30 UTC) on November 7, 2026; visible time, countdown, calendar and share text updated together.
 
 - Latest cleanup: visible pause control removed at user request; OS reduced-motion remains supported. Circled helper notes removed from selected forms; action labels and post-action status still accurately describe local previews. Gap between wishes and memories reduced.
+
+- Unfold uses a 2.1-second two-panel 3D paper transition before revealing/focusing details; reduced-motion skips it. Tests must wait for details visibility instead of a fixed short sleep.

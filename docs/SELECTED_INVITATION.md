@@ -51,3 +51,7 @@ Hero bouquets doubled from two to four and enlarged about 20%; closing bouquets 
 Removed the “Save a little space for our big day” eyebrow at the couple’s request, leaving the celebration heading and practical details.
 
 Latest couple request: removed the visible Pause motion control and the circled wish/photo helper notes, and reduced the gap between wishes and memories to 36px. Preview action labels and honest post-action status remain; no backend implied. Reduced-motion preference still respected. Build, lint, selected journey and absence/spacing checks pass.
+
+### Physical unfolding interaction
+
+Unfold now runs a 2.1-second gatefold transition: two independently hinged covers, original artwork split across the front, paper backs, inner invitation and depth/shadows. Details remain hidden until the opening completes, then scroll into view and receive focus. Repeat taps are disabled during unfolding, the timer is cleaned up on unmount, and reduced-motion opens directly. Fold/reopen remains available. Build, lint, full selected journey and a mobile midpoint screenshot/sequence check passed.

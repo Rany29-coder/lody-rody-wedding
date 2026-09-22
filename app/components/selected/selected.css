@@ -348,19 +348,6 @@
   transform-origin: top;
   position: relative;
 }
-.is-unfolded .unfolded-paper {
-  animation: paper-unfold 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-@keyframes paper-unfold {
-  from {
-    transform: rotateX(-16deg);
-    opacity: 0.3;
-  }
-  to {
-    transform: rotateX(0);
-    opacity: 1;
-  }
-}
 .sage-blessing {
   text-align: center;
   padding: 80px 25px 70px;
@@ -990,4 +977,178 @@
 }
 .selected-world .empty-wish {
   margin-bottom: 0;
+}
+
+/* A physical gatefold: two hinged paper covers expose the inner invitation. */
+.unfold-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #4f6249e8;
+  perspective: 1400px;
+  animation: unfold-stage-fade 2.1s both;
+  touch-action: none;
+}
+.fold-scene {
+  position: relative;
+  width: min(66vw, 350px);
+  height: min(57svh, 440px);
+  transform-style: preserve-3d;
+  animation: unfold-card-lift 2.1s both;
+}
+.fold-inside {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 22px;
+  text-align: center;
+  background: linear-gradient(
+    90deg,
+    #e6dfcb,
+    #fff9ec 12%,
+    #fff9ec 88%,
+    #e6dfcb
+  );
+  color: #3c533d;
+  box-shadow: 0 20px 55px #15261260;
+  border: 1px solid #dbd4c1;
+}
+.fold-inside p {
+  font-family: var(--font-condensed), sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+.fold-inside strong {
+  font-family: var(--font-serif), serif;
+  font-weight: 400;
+  font-size: clamp(24px, 5vw, 38px);
+  line-height: 1.12;
+}
+.fold-inside em {
+  font-weight: 300;
+}
+.fold-ornament {
+  font-size: 28px;
+  color: #879573;
+}
+.fold-signature {
+  font-family: var(--font-script), cursive;
+  font-size: 28px;
+}
+.fold-cover {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.fold-cover-left {
+  left: 0;
+  transform-origin: left center;
+  animation: unfold-left 1.55s 0.2s cubic-bezier(0.4, 0, 0.15, 1) both;
+}
+.fold-cover-right {
+  right: 0;
+  transform-origin: right center;
+  animation: unfold-right 1.55s 0.3s cubic-bezier(0.4, 0, 0.15, 1) both;
+}
+.fold-front,
+.fold-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.fold-front {
+  overflow: hidden;
+  background: #819076;
+  border: 1px solid #b6bda050;
+}
+.fold-cover-left .fold-front {
+  box-shadow: inset -8px 0 15px #34492d22;
+}
+.fold-cover-right .fold-front {
+  box-shadow: inset 6px 0 15px #edf0d41a;
+}
+.fold-back {
+  background: linear-gradient(90deg, #d9d1bd, #f8f3e6 25%, #eee7d5);
+  transform: rotateY(180deg);
+  border: 1px solid #d2cab7;
+}
+.fold-print {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  align-items: center;
+}
+.fold-cover-right .fold-print {
+  left: -100%;
+}
+.fold-print .closing-wordmark {
+  width: 94%;
+  height: auto;
+  margin: 0;
+  left: auto;
+  transform: none;
+}
+.fold-print p {
+  font-family: var(--font-condensed), sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+@keyframes unfold-left {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(-158deg);
+  }
+}
+@keyframes unfold-right {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(158deg);
+  }
+}
+@keyframes unfold-card-lift {
+  0% {
+    transform: translateY(30px) rotateX(10deg) scale(0.92);
+  }
+  25% {
+    transform: translateY(0) rotateX(0) scale(1);
+  }
+  100% {
+    transform: translateY(0) rotateX(0) scale(1.03);
+  }
+}
+@keyframes unfold-stage-fade {
+  0% {
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.sage-open:disabled {
+  cursor: wait;
 }

@@ -195,6 +195,14 @@ function Names({
 }
 export default function SelectedInvitation() {
   const [opened, setOpened] = useState(false);
+  const [unfolding, setUnfolding] = useState(false);
+  const unfoldTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (unfoldTimer.current) clearTimeout(unfoldTimer.current);
+    },
+    [],
+  );
   const [shareStatus, setShareStatus] = useState("");
   const [remaining, setRemaining] = useState<number | null>(null);
   const details = useRef<HTMLElement>(null);
@@ -209,19 +217,28 @@ export default function SelectedInvitation() {
     const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
   }, []);
-  function open() {
+  function finishOpening() {
     setOpened(true);
+    setUnfolding(false);
     setCelebration((n) => n + 1);
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
         details.current?.scrollIntoView({
-          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "instant"
-            : "smooth",
+          behavior: "instant",
           block: "start",
         });
+        details.current?.focus({ preventScroll: true });
       }),
     );
+  }
+  function open() {
+    if (unfolding) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finishOpening();
+      return;
+    }
+    setUnfolding(true);
+    unfoldTimer.current = setTimeout(finishOpening, 2100);
   }
   function close() {
     setOpened(false);
@@ -316,6 +333,37 @@ export default function SelectedInvitation() {
         ];
   return (
     <main className="design-world selected-world">
+      {unfolding && (
+        <div
+          className="unfold-stage"
+          role="status"
+          aria-label="Unfolding your invitation"
+        >
+          <div className="fold-scene" aria-hidden="true">
+            <div className="fold-inside">
+              <span className="fold-ornament">✧</span>
+              <p>Together with our families</p>
+              <strong>
+                Two hearts.
+                <br />
+                <em>One beautiful promise.</em>
+              </strong>
+              <span className="fold-signature">Rody + Lody</span>
+            </div>
+            {["left", "right"].map((side) => (
+              <div key={side} className={`fold-cover fold-cover-${side}`}>
+                <div className="fold-front">
+                  <div className="fold-print">
+                    <Names closing />
+                    <p>You are invited</p>
+                  </div>
+                </div>
+                <div className="fold-back" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <header className="sage-header">
         <a href="#home" aria-label="Rody and Lody, back to invitation">
           <Names compact />
@@ -382,6 +430,7 @@ export default function SelectedInvitation() {
         <button
           ref={openButton}
           className="sage-open"
+          disabled={unfolding}
           onClick={
             opened
               ? () =>
@@ -397,7 +446,11 @@ export default function SelectedInvitation() {
           aria-controls="our-invitation"
         >
           <span>
-            {opened ? "Return to the details" : "Unfold the invitation"}
+            {unfolding
+              ? "Unfolding…"
+              : opened
+                ? "Return to the details"
+                : "Unfold the invitation"}
           </span>
           <span aria-hidden="true">↓</span>
         </button>
@@ -408,6 +461,7 @@ export default function SelectedInvitation() {
         className={`sage-details wedding-details ${opened ? "is-unfolded" : ""}`}
         hidden={!opened}
         ref={details}
+        tabIndex={-1}
       >
         <nav className="sage-nav" aria-label="Wedding invitation">
           <a href="#celebration">The day</a>

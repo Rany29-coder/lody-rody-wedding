@@ -42,7 +42,7 @@ const base =
     0,
   );
   await page.getByRole("button", { name: "Unfold the invitation" }).tap();
-  await page.waitForTimeout(1300);
+  await page.locator("#our-invitation").waitFor({ state: "visible" });
   assert.equal(await page.locator("#our-invitation").isVisible(), true);
   await page.screenshot({ path: "output/design-checks/selected-unfolded.png" });
   const download = page.waitForEvent("download");
