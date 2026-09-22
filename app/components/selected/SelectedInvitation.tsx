@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { wedding } from "../../wedding-config";
 import GuestExtras from "../designs/GuestExtras";
@@ -24,90 +24,115 @@ function Lilies({ className = "" }: { className?: string }) {
     />
   );
 }
-function Names() {
-  return (
+function Names({ compact = false }: { compact?: boolean }) {
+  const id = useId();
+  const artwork = (
+    <svg
+      className={`original-wordmark ${compact ? "is-static" : ""}`}
+      viewBox="0 0 912 486"
+      aria-hidden="true"
+    >
+      <defs>
+        <filter id={`${id}-wordmark-ink`} colorInterpolationFilters="sRGB">
+          {/* Isolate the light ink at render time; keep the original artwork intact. */}
+          <feColorMatrix
+            type="matrix"
+            values={
+              compact
+                ? "0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  1.5 3 .5 0 -3.2"
+                : "0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  3 6 1 0 -7"
+            }
+          />
+        </filter>
+      </defs>
+      <defs>
+        <clipPath id={`${id}-ink-rody`}>
+          <path d="M0 0H912V250H810L760 278H460L450 275L430 270L400 265L370 220H265L250 278H0Z" />
+        </clipPath>
+        <clipPath id={`${id}-ink-lody`}>
+          <path d="M0 278H250L265 220H370L400 265L430 270L450 275L460 278H760L810 250H912V486H0Z" />
+        </clipPath>
+        <mask
+          id={`${id}-ink-from-left`}
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="912"
+          height="486"
+        >
+          <path
+            className="ink-trace"
+            pathLength="1"
+            d="M-70 245 C80 290 90 130 220 170 S350 200 410 150 L490 45 C660 0 565 145 430 205 L545 220 L455 250 L485 150 L575 165 L620 165 L655 100 L630 180 L700 155 L680 265 L745 165 L790 155"
+          />
+          <rect
+            className="ink-complete"
+            width="912"
+            height="486"
+            fill="white"
+          />
+        </mask>
+        <mask
+          id={`${id}-ink-from-right`}
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="912"
+          height="486"
+        >
+          <path
+            className="ink-trace"
+            pathLength="1"
+            d="M982 280 C820 240 735 345 800 295 C760 415 610 370 540 350 L485 350 L430 445 L475 350 L410 345 L420 280 L385 355 L335 345 L290 350 L325 245 L270 415 L375 415"
+          />
+          <rect
+            className="ink-complete"
+            width="912"
+            height="486"
+            fill="white"
+          />
+        </mask>
+      </defs>
+      <defs>
+        <mask
+          id={`${id}-clean-ink`}
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="912"
+          height="486"
+        >
+          <rect width="912" height="486" fill="white" />
+          <path d="M398 171 Q400 168 403 166 H418 V185 H394 Z" fill="black" />
+        </mask>
+      </defs>
+      <g mask={`url(#${id}-clean-ink)`}>
+        <g className="ink-side ink-left" clipPath={`url(#${id}-ink-rody)`}>
+          <image
+            href={`${base}/invitation/original-wordmark.jpeg`}
+            width="912"
+            height="486"
+            filter={`url(#${id}-wordmark-ink)`}
+            mask={`url(#${id}-ink-from-left)`}
+          />
+        </g>
+        <g className="ink-side ink-right" clipPath={`url(#${id}-ink-lody)`}>
+          <image
+            href={`${base}/invitation/original-wordmark.jpeg`}
+            width="912"
+            height="486"
+            filter={`url(#${id}-wordmark-ink)`}
+            mask={`url(#${id}-ink-from-right)`}
+          />
+        </g>
+      </g>
+    </svg>
+  );
+  return compact ? (
+    <span className="header-wordmark">{artwork}</span>
+  ) : (
     <h1 className="sage-names" aria-label="Rody and Lody">
-      <svg
-        className="original-wordmark"
-        viewBox="0 0 912 486"
-        aria-hidden="true"
-      >
-        <defs>
-          <filter id="wordmark-ink" colorInterpolationFilters="sRGB">
-            {/* Isolate the light ink at render time; keep the original artwork intact. */}
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 1  0 0 0 0 .945  0 0 0 0 .8  3 6 1 0 -7"
-            />
-          </filter>
-        </defs>
-        <defs>
-          <clipPath id="ink-rody">
-            <path d="M0 0H912V250H810L760 278H460L450 275L430 270L400 265L370 220H265L250 278H0Z" />
-          </clipPath>
-          <clipPath id="ink-lody">
-            <path d="M0 278H250L265 220H370L400 265L430 270L450 275L460 278H760L810 250H912V486H0Z" />
-          </clipPath>
-          <mask
-            id="ink-from-left"
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="0"
-            width="912"
-            height="486"
-          >
-            <path
-              className="ink-trace"
-              pathLength="1"
-              d="M-70 245 C80 290 90 130 220 170 S350 200 410 150 L490 45 C660 0 565 145 430 205 L545 220 L455 250 L485 150 L575 165 L620 165 L655 100 L630 180 L700 155 L680 265 L745 165 L790 155"
-            />
-            <rect
-              className="ink-complete"
-              width="912"
-              height="486"
-              fill="white"
-            />
-          </mask>
-          <mask
-            id="ink-from-right"
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="0"
-            width="912"
-            height="486"
-          >
-            <path
-              className="ink-trace"
-              pathLength="1"
-              d="M982 280 C820 240 735 345 800 295 C760 415 610 370 540 350 L485 350 L430 445 L475 350 L410 345 L420 280 L385 355 L335 345 L290 350 L325 245 L270 415 L375 415"
-            />
-            <rect
-              className="ink-complete"
-              width="912"
-              height="486"
-              fill="white"
-            />
-          </mask>
-        </defs>
-        <g className="ink-side ink-left" clipPath="url(#ink-rody)">
-          <image
-            href={`${base}/invitation/original-wordmark.jpeg`}
-            width="912"
-            height="486"
-            filter="url(#wordmark-ink)"
-            mask="url(#ink-from-left)"
-          />
-        </g>
-        <g className="ink-side ink-right" clipPath="url(#ink-lody)">
-          <image
-            href={`${base}/invitation/original-wordmark.jpeg`}
-            width="912"
-            height="486"
-            filter="url(#wordmark-ink)"
-            mask="url(#ink-from-right)"
-          />
-        </g>
-      </svg>
+      {artwork}
     </h1>
   );
 }
@@ -149,6 +174,18 @@ export default function SelectedInvitation() {
     );
     hero.current?.scrollIntoView({ behavior: "instant" });
   }
+  const shareTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (shareTimer.current) clearTimeout(shareTimer.current);
+    },
+    [],
+  );
+  function showShareStatus(message: string, duration = 3000) {
+    if (shareTimer.current) clearTimeout(shareTimer.current);
+    setShareStatus(message);
+    shareTimer.current = setTimeout(() => setShareStatus(""), duration);
+  }
   async function share() {
     const data = {
       title: "Rody & Lody — November 7, 2026",
@@ -160,16 +197,17 @@ export default function SelectedInvitation() {
         await navigator.share(data);
       } else {
         await navigator.clipboard.writeText(data.url);
-        setShareStatus("Invitation link copied.");
+        showShareStatus("Invitation link copied.");
       }
     } catch (e) {
       if (e instanceof Error && e.name === "AbortError") return;
       try {
         await navigator.clipboard.writeText(data.url);
-        setShareStatus("Invitation link copied.");
+        showShareStatus("Invitation link copied.");
       } catch {
-        setShareStatus(
+        showShareStatus(
           "Copy the website address from your browser to share this invitation.",
+          7000,
         );
       }
     }
@@ -227,7 +265,7 @@ export default function SelectedInvitation() {
     >
       <header className="sage-header">
         <a href="#home" aria-label="Rody and Lody, back to invitation">
-          R<span>&</span>L
+          <Names compact />
         </a>
         <div>
           <button onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
@@ -286,7 +324,6 @@ export default function SelectedInvitation() {
             <br />
             <span>Tahrir Square · Cairo</span>
           </p>
-          <p className="loved-ones">Your loved ones are also ours!</p>
         </div>
         <Lilies className="lilies-left" />
         <Lilies className="lilies-right" />

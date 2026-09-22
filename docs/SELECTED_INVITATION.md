@@ -35,3 +35,7 @@ The hero uses the couple’s original supplied JPEG (`public/invitation/original
 The original wordmark now reveals through two animated SVG ink masks from opposite sides, moving gently inward and meeting in the middle over four seconds. This gives a handwriting-style reveal of the original artwork; it is not a font replacement. The full source mark is revealed at completion. Pause motion and reduced-motion preferences are respected.
 
 Each reveal is clipped to a whole name, using the gap between the original handwritten lines: the left flourish continues through Rody; the right flourish continues through Lody. Neither reveal can paint the other name.
+
+### Couple feedback — mobile refinement
+
+Removed the repeated hero loved-ones tagline (retained in the closing), reused the original handwritten artwork for the static header logo with unique SVG IDs, and masked the small unwanted spur at the R/flourish junction without modifying the source JPEG. Mobile spacing adapts to the small viewport height, including embedded browser chrome. At 320×568, 375×667, 390×700 and 430×800 the time, venue and unfold button fit without scrolling. Share feedback is a bottom toast, dismissed after three seconds (seven for fallback instructions); repeated sharing resets the timeout, and unmount clears it. Build, lint, selected journey checks and clipboard timeout checks passed.

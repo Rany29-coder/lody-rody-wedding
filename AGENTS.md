@@ -21,3 +21,5 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Live accessible text, layered art, brief confetti, unfolding details, reduced-motion controls, native share with clipboard fallback, timed .ics, and a real countdown. `node scripts/verify-selected.cjs` checks this route separately from the archived collection.
 
 - Hero wordmark uses the supplied original JPEG through an SVG ink filter; do not replace with a script font. Date/time are displayed only in the hero (calendar/countdown retained).
+
+- Mobile hero adapts to small viewport height; keep date/time/venue and unfold action visible on 320×568. Original artwork is reused in the header, with unique SVG IDs and no animation there. Share feedback clears automatically.
