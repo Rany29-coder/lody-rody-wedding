@@ -42,11 +42,11 @@ function Names() {
           </filter>
         </defs>
         <defs>
-          <clipPath id="ink-left-half">
-            <rect width="456" height="486" />
+          <clipPath id="ink-rody">
+            <path d="M0 0H912V250H810L760 278H460L450 275L430 270L400 265L370 220H265L250 278H0Z" />
           </clipPath>
-          <clipPath id="ink-right-half">
-            <rect x="456" width="456" height="486" />
+          <clipPath id="ink-lody">
+            <path d="M0 278H250L265 220H370L400 265L430 270L450 275L460 278H760L810 250H912V486H0Z" />
           </clipPath>
           <mask
             id="ink-from-left"
@@ -59,7 +59,7 @@ function Names() {
             <path
               className="ink-trace"
               pathLength="1"
-              d="M-70 250 C70 295 105 110 240 165 S350 220 430 145 L510 35 L460 250 L365 230 L290 320 L260 425 L395 350 L510 430"
+              d="M-70 245 C80 290 90 130 220 170 S350 200 410 150 L490 45 C660 0 565 145 430 205 L545 220 L455 250 L485 150 L575 165 L620 165 L655 100 L630 180 L700 155 L680 265 L745 165 L790 155"
             />
             <rect
               className="ink-complete"
@@ -79,7 +79,7 @@ function Names() {
             <path
               className="ink-trace"
               pathLength="1"
-              d="M982 280 C800 220 835 420 640 350 L465 350 L550 445 L700 240 L755 140 L620 195 L520 140 L605 35 L455 80 L395 250"
+              d="M982 280 C820 240 735 345 800 295 C760 415 610 370 540 350 L485 350 L430 445 L475 350 L410 345 L420 280 L385 355 L335 345 L290 350 L325 245 L270 415 L375 415"
             />
             <rect
               className="ink-complete"
@@ -89,7 +89,7 @@ function Names() {
             />
           </mask>
         </defs>
-        <g className="ink-side ink-left" clipPath="url(#ink-left-half)">
+        <g className="ink-side ink-left" clipPath="url(#ink-rody)">
           <image
             href={`${base}/invitation/original-wordmark.jpeg`}
             width="912"
@@ -98,7 +98,7 @@ function Names() {
             mask="url(#ink-from-left)"
           />
         </g>
-        <g className="ink-side ink-right" clipPath="url(#ink-right-half)">
+        <g className="ink-side ink-right" clipPath="url(#ink-lody)">
           <image
             href={`${base}/invitation/original-wordmark.jpeg`}
             width="912"
