@@ -26,6 +26,7 @@ const base =
   assert.equal(
     await page
       .locator(".lilies-left")
+      .first()
       .evaluate((e) => e.complete && e.naturalWidth > 0),
     true,
   );

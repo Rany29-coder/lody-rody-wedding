@@ -7,7 +7,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const target = Date.parse("2026-11-07T19:00:00+02:00");
 const pieces = Array.from({ length: 30 }, (_, i) => ({
   left: `${(i * 37 + 11) % 100}%`,
-  delay: `${(i % 9) * 0.27}s`,
+  delay: `${-((i * 1.73) % (6 + (i % 4)))}s`,
   duration: `${6 + (i % 4)}s`,
   rotate: `${i * 29}deg`,
 }));
@@ -24,7 +24,13 @@ function Lilies({ className = "" }: { className?: string }) {
     />
   );
 }
-function Names({ compact = false }: { compact?: boolean }) {
+function Names({
+  compact = false,
+  closing = false,
+}: {
+  compact?: boolean;
+  closing?: boolean;
+}) {
   const id = useId();
   if (compact) {
     const ink = `url(#${id}-initial-ink)`;
@@ -78,7 +84,11 @@ function Names({ compact = false }: { compact?: boolean }) {
     );
   }
   const artwork = (
-    <svg className="original-wordmark" viewBox="0 0 912 486" aria-hidden="true">
+    <svg
+      className={`original-wordmark ${closing ? "is-static" : ""}`}
+      viewBox="0 0 912 486"
+      aria-hidden="true"
+    >
       <defs>
         <filter id={`${id}-wordmark-ink`} colorInterpolationFilters="sRGB">
           {/* Isolate the light ink at render time; keep the original artwork intact. */}
@@ -171,6 +181,12 @@ function Names({ compact = false }: { compact?: boolean }) {
       </g>
     </svg>
   );
+  if (closing)
+    return (
+      <h2 className="sage-names closing-wordmark" aria-label="Rody and Lody">
+        {artwork}
+      </h2>
+    );
   return (
     <h1 className="sage-names" aria-label="Rody and Lody">
       {artwork}
@@ -309,9 +325,6 @@ export default function SelectedInvitation() {
           <Names compact />
         </a>
         <div>
-          <button onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
-            {paused ? "Resume motion" : "Pause motion"}
-          </button>
           <button onClick={share}>Share ↗</button>
         </div>
       </header>
@@ -368,6 +381,8 @@ export default function SelectedInvitation() {
         </div>
         <Lilies className="lilies-left" />
         <Lilies className="lilies-right" />
+        <Lilies className="lilies-left lilies-extra-left" />
+        <Lilies className="lilies-right lilies-extra-right" />
         <button
           ref={openButton}
           className="sage-open"
@@ -430,7 +445,8 @@ export default function SelectedInvitation() {
               </figcaption>
             </figure>
             <p className="blessing-note">
-              It would mean the world to celebrate this beginning with you.
+              <span>It would mean the world to celebrate</span>
+              <span>this beginning with you.</span>
             </p>
           </section>
           <section id="celebration" className="sage-celebration">
@@ -476,13 +492,18 @@ export default function SelectedInvitation() {
             </p>
           </section>
           <div className="sage-guest-sections">
-            <GuestExtras />
+            <GuestExtras refined />
           </div>
           <footer className="sage-closing">
             <Lilies />
+            <Lilies className="closing-lilies-right" />
             <p>With all our love,</p>
-            <h2>Rody & Lody</h2>
-            <p className="closing-tagline">Your loved ones are also ours!</p>
+            <Names closing />
+            <p className="closing-tagline">
+              Your loved ones
+              <br />
+              are also ours!
+            </p>
             <button onClick={share} className="secondary-action">
               Share the invitation ↗
             </button>
@@ -490,6 +511,11 @@ export default function SelectedInvitation() {
           </footer>
         </div>
       </section>
+      <div className="motion-settings">
+        <button onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
+          {paused ? "Resume motion" : "Pause motion"}
+        </button>
+      </div>
     </main>
   );
 }

@@ -3,7 +3,11 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 type Wish = { id: string; name: string; message: string };
 type Photo = { id: string; url: string; name: string };
-export default function GuestExtras() {
+export default function GuestExtras({
+  refined = false,
+}: {
+  refined?: boolean;
+}) {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [status, setStatus] = useState("");
@@ -66,12 +70,15 @@ export default function GuestExtras() {
         <p className="eyebrow">Little words. Lasting memories.</p>
         <h2>Leave a little love.</h2>
         <p className="section-intro">
-          A blessing, a memory, a wish for the years ahead.
+          A blessing, a memory,{refined ? <br /> : " "}a wish for the years
+          ahead.
         </p>
-        <p className="demo-note">
-          Design preview · messages stay on this page only and are not sent to
-          the couple.
-        </p>
+        {!refined && (
+          <p className="demo-note">
+            Design preview · messages stay on this page only and are not sent to
+            the couple.
+          </p>
+        )}
         <form onSubmit={submit}>
           <label>
             Your name
@@ -96,6 +103,11 @@ export default function GuestExtras() {
           <button className="primary-action" type="submit">
             Preview your wish <span>↗</span>
           </button>
+          {refined && (
+            <small className="wish-preview-label">
+              Preview only · not sent to the couple.
+            </small>
+          )}
           <p role="status">{status}</p>
         </form>
         <div className="wishes-list">

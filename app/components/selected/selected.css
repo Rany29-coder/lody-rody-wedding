@@ -278,7 +278,7 @@
   height: 12px;
   opacity: 0;
   background: linear-gradient(40deg, #c6bd75, #f3e4a8);
-  animation: celebrate-fall 8s ease-in both;
+  animation: celebrate-fall 8s ease-in infinite both;
   transform: rotate(var(--turn));
 }
 .sage-confetti > span:nth-child(3n) {
@@ -908,4 +908,101 @@
 .sage-blessing .verse-reference {
   display: block;
   margin-top: 4px;
+}
+
+/* Fuller floral edges, with the invitation text above the flower layers. */
+.sage-hero > .calla-lilies {
+  width: clamp(210px, 32vw, 455px);
+}
+.sage-hero .lilies-extra-left {
+  left: max(-20px, calc(50% - 590px));
+  bottom: -130px;
+  opacity: 0.55;
+  transform: translateX(var(--drift)) rotate(13deg);
+}
+.sage-hero .lilies-extra-right {
+  right: max(-30px, calc(50% - 590px));
+  bottom: -130px;
+  opacity: 0.5;
+  transform: translateX(calc(var(--drift) * -0.7)) scaleX(-1) rotate(14deg);
+}
+.sage-closing .calla-lilies {
+  width: 250px;
+}
+.sage-closing .closing-lilies-right {
+  left: auto;
+  right: -45px;
+  transform: scaleX(-1);
+}
+.sage-closing .closing-wordmark {
+  width: min(520px, 100%);
+  height: auto;
+  margin: 18px auto;
+  left: auto;
+  transform: none;
+  font-size: inherit;
+}
+.blessing-note > span {
+  display: block;
+}
+.selected-world .wishes-section .section-intro {
+  margin-bottom: 20px;
+}
+.wish-preview-label {
+  display: block;
+  font-family: var(--font-condensed), sans-serif;
+  font-size: 13px;
+  margin-top: 8px;
+  color: #53634b;
+  text-align: center;
+}
+.motion-settings {
+  text-align: center;
+  padding: 10px 20px;
+  background: #819076;
+}
+.motion-settings button {
+  min-height: 44px;
+  padding: 8px 16px;
+  font-family: var(--font-condensed), sans-serif;
+  color: #263e2a;
+  font-size: 14px;
+}
+@media (max-width: 600px) {
+  .sage-hero .lilies-left {
+    width: 195px;
+    left: -82px;
+    opacity: 0.52;
+  }
+  .sage-hero .lilies-right {
+    width: 175px;
+    right: -72px;
+    opacity: 0.48;
+  }
+  .sage-hero .lilies-extra-left {
+    width: 178px;
+    left: -32px;
+    bottom: -100px;
+    opacity: 0.38;
+  }
+  .sage-hero .lilies-extra-right {
+    width: 163px;
+    right: -28px;
+    bottom: -95px;
+    opacity: 0.36;
+  }
+  .sage-closing .calla-lilies {
+    width: 195px;
+  }
+  .blessing-note {
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.55;
+  }
+  .selected-world .wishes-section {
+    padding-top: 45px;
+    padding-bottom: 40px;
+  }
+  .selected-world .wishes-section h2 {
+    margin-bottom: 18px;
+  }
 }

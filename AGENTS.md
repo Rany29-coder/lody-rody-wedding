@@ -18,8 +18,10 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 - `/` and `/invitation/` now serve the chosen sage/ivory/calla-lily design. See `docs/SELECTED_INVITATION.md` for implementation, asset prompts and verification.
 - Wedding time is **2026-11-07T19:00:00+02:00** (17:00 UTC). Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo. Do not invent an end time.
-- Live accessible text, layered art, brief confetti, unfolding details, reduced-motion controls, native share with clipboard fallback, timed .ics, and a real countdown. `node scripts/verify-selected.cjs` checks this route separately from the archived collection.
+- Live accessible text, layered art, continuous confetti, unfolding details, reduced-motion controls, native share with clipboard fallback, timed .ics, and a real countdown. `node scripts/verify-selected.cjs` checks this route separately from the archived collection.
 
 - Hero wordmark uses the supplied original JPEG through an SVG ink filter; do not replace with a script font. Date/time are displayed only in the hero (calendar/countdown retained).
 
 - Mobile hero adapts to small viewport height; keep date/time/venue and unfold action visible on 320×568. Original artwork is reused in the header, with unique SVG IDs and no animation there. Share feedback clears automatically.
+
+- Floral update: four larger hero bouquets, two closing bouquets; closing reuses static original wordmark. Confetti loops; pause/resume is below the invitation. Selected guestbook uses `refined` layout while keeping its local-preview status clear.
