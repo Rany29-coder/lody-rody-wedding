@@ -2,7 +2,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { wedding } from "../../wedding-config";
-import GuestExtras from "../designs/GuestExtras";
+import WeddingGuests from "./WeddingGuests";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const target = Date.parse(wedding.date);
 const pieces = Array.from({ length: 30 }, (_, i) => ({
@@ -349,7 +349,7 @@ export default function SelectedInvitation() {
           className="unfold-stage"
           style={{ "--unfold-zoom": unfoldZoom } as CSSProperties}
           role="status"
-          aria-label="Unfolding your invitation"
+          aria-label="Opening your envelope"
         >
           <div className="fold-scene" aria-hidden="true">
             <div className="fold-inside">
@@ -362,24 +362,13 @@ export default function SelectedInvitation() {
               </strong>
               <span className="fold-signature">Rody + Lody</span>
             </div>
-            {["left", "right"].map((side) => (
-              <div key={side} className={`fold-cover fold-cover-${side}`}>
-                <div className="fold-front">
-                  <div className="fold-print">
-                    <Names closing />
-                    <p>You are invited</p>
-                  </div>
-                </div>
-                <div className="fold-back" />
-              </div>
-            ))}
+            <div className="envelope-pocket" />
+            <div className="envelope-flap" />
+            <span className="envelope-seal">R + L</span>
           </div>
         </div>
       )}
       <header className="sage-header">
-        <a href="#home" aria-label="Rody and Lody, back to invitation">
-          <Names compact />
-        </a>
         <div>
           <button onClick={share}>Share ↗</button>
         </div>
@@ -459,10 +448,10 @@ export default function SelectedInvitation() {
         >
           <span>
             {unfolding
-              ? "Unfolding…"
+              ? "Opening…"
               : opened
                 ? "Return to the details"
-                : "Unfold the invitation"}
+                : "Open the invitation"}
           </span>
           <span aria-hidden="true">↓</span>
         </button>
@@ -553,7 +542,7 @@ export default function SelectedInvitation() {
             </p>
           </section>
           <div className="sage-guest-sections">
-            <GuestExtras refined />
+            <WeddingGuests />
           </div>
           <footer className="sage-closing">
             <Lilies />

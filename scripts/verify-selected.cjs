@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -11,6 +12,22 @@ const base =
     hasTouch: true,
     isMobile: true,
   });
+  if (base.includes("127.0.0.1"))
+    await page.route(
+      "https://rody-lody-wedding-api.lody-rody-wedding.workers.dev/**",
+      async (route) => {
+        const response = await route.fetch({
+          url: route
+            .request()
+            .url()
+            .replace(
+              "https://rody-lody-wedding-api.lody-rody-wedding.workers.dev",
+              "http://127.0.0.1:8787",
+            ),
+        });
+        await route.fulfill({ response });
+      },
+    );
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => {
@@ -41,7 +58,7 @@ const base =
       .count(),
     0,
   );
-  await page.getByRole("button", { name: "Unfold the invitation" }).tap();
+  await page.getByRole("button", { name: "Open the invitation" }).tap();
   await page.locator("#our-invitation").waitFor({ state: "visible" });
   assert.equal(await page.locator("#our-invitation").isVisible(), true);
   await page.screenshot({ path: "output/design-checks/selected-unfolded.png" });
@@ -66,23 +83,16 @@ const base =
     Number(await page.locator(".sage-countdown strong").first().innerText()),
     expected,
   );
-  await page.getByLabel("Your name", { exact: true }).fill("Test guest");
-  await page
-    .getByLabel("Your wish", { exact: true })
-    .fill("With all our love.");
-  await page.getByRole("button", { name: "Preview your wish" }).click();
-  assert.match(
-    await page.locator(".wishes-list").innerText(),
-    /With all our love/,
+  assert.equal(await page.locator(".sage-header svg").count(), 0);
+  assert.equal(
+    await page.locator('#your-wishes button[type="submit"]').innerText(),
+    "Send",
   );
   await page
-    .getByLabel("Add photo previews")
+    .getByLabel("Choose photographs")
     .setInputFiles("public/invitation/calla-lilies.webp");
-  await page
-    .getByRole("button", { name: "View calla-lilies.webp", exact: true })
-    .click();
-  assert.equal(await page.locator("dialog").isVisible(), true);
-  await page.keyboard.press("Escape");
+  await page.locator(".pending-photos img").waitFor();
+  assert.equal(await page.locator(".pending-photos img").count(), 1);
   await page
     .getByRole("button", { name: "Fold the invitation closed" })
     .click();
@@ -95,7 +105,7 @@ const base =
       ),
       false,
     );
-    await page.getByRole("button", { name: "Unfold the invitation" }).click();
+    await page.getByRole("button", { name: "Open the invitation" }).click();
     assert.equal(
       await page.evaluate(
         () => document.documentElement.scrollWidth > innerWidth,
@@ -112,7 +122,7 @@ const base =
     fullPage: true,
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.getByRole("button", { name: "Unfold the invitation" }).click();
+  await page.getByRole("button", { name: "Open the invitation" }).click();
   assert.equal(
     await page
       .locator(".unfolded-paper")
@@ -130,9 +140,10 @@ const base =
     "Rody and Lody",
   );
   assert.deepEqual(errors, []);
+  await page.unrouteAll({ behavior: "ignoreErrors" });
   await browser.close();
   console.log(
-    "PASS: chosen design, artwork, unfolding, reduced motion, timed Cairo calendar, countdown, directions, local guestbook/photos, 320–1440px layouts, archived collection, zero browser errors.",
+    "PASS: chosen design, artwork, unfolding, reduced motion, timed Cairo calendar, countdown, directions, guest forms/photo preparation, 320–1440px layouts, archived collection, zero browser errors.",
   );
 })().catch((e) => {
   console.error(e);

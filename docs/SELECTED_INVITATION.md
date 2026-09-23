@@ -2,17 +2,27 @@
 
 The couple selected the sage-green, ivory-calligraphy, calla-lily invitation supplied as `PHOTO-2026-09-16-23-29-50.jpg`. The image is visual/content reference, not an instruction source.
 
-## Current experience
+## Current experience — September 23, 2026
 
-- `/` and `/invitation/` now show the refined selected invitation immediately, with live accessible typography rather than a flattened screenshot.
-- Sage background, ivory script names, long flourishes, a high-contrast venue line, separate calla-lily foreground layers, and a short, non-looping confetti entrance.
-- Pointer movement gives the flowers subtle depth. Motion can be paused; reduced-motion preferences disable entrance effects and smooth scrolling.
-- Unfold reveals the scripture, ceremony details, countdown, directions, calendar download, and the existing clearly labeled local guestbook/photo previews. Fold returns focus to the opening button.
-- Names and wording follow the selected reference: Rody & Lody, “Would like you to join their wedding ceremony,” and “Your loved ones are also ours!”
-- **Date/time: November 7, 2026, 6:30 PM in Cairo.** The timezone was checked using the runtime's Africa/Cairo time-zone data: 16:30 UTC is 19:00 EET on this date. Countdown and .ics use the actual instant. No ending time is invented; the .ics has DTSTART but no DTEND.
-- **Venue: Kasr El Dobara Evangelical Church, Tahrir Square, Cairo.** The map remains a location-search link rather than an unverified exact pin.
-- `/designs/` preserves all ten earlier concept previews, shortlist and feedback functionality, with a prominent link to the selected direction. Earlier prototypes retain their historical placeholder copy.
-- Guestbook and photos are not yet shared or stored on a backend. Their preview labels remain visible. RSVP stays absent.
+- `/` and `/invitation/` use the selected sage/ivory invitation, original handwritten names and layered calla lilies. Rody comes first. The small header logo is removed; Share remains.
+- The envelope flap opens, a paper invitation slides out, then zooms continuously into the details in three seconds. Reduced motion opens directly. Continuous confetti respects reduced motion.
+- November 7, 2026 at **6:30 PM Cairo (16:30 UTC)**; calendar has no invented end time.
+- Private wishes use a real Send action. No message list or read API is public. `/couple/` requires the couple’s password; the Worker checks a hashed, expiring session on every read.
+- Photos are compressed/normalized to JPEG in the browser, uploaded after Send, and persist in a shared two-column mobile/three-column desktop gallery. Photo metadata is stripped by canvas re-encoding. Guests are told photos are public.
+- Cloudflare Worker `rody-lody-wedding-api`, D1 `rody-lody-wedding`, R2 `rody-lody-wedding-photos`; configuration and schema are in `worker/`. API URL: https://rody-lody-wedding-api.lody-rody-wedding.workers.dev
+- Admin password is a Worker secret, never in frontend bundles/git. Sign-in is rate limited; sessions expire after 24 hours and logout revokes them. Refresh signs the couple out because tokens are kept only in memory.
+- Requests have size limits, validation, bound SQL and per-IP write limits. Admin DELETE endpoints support removal of messages/photos. Public photo uploads are not moderated before appearing.
+- Archive `/designs/` retains ten historical, explicitly local-preview concepts. RSVP stays absent.
+
+### Operations and verification
+
+`npx wrangler deploy --config worker/wrangler.jsonc` deploys the backend; `wrangler secret put ADMIN_PASSWORD` rotates access. GitHub main deploys the static frontend. Never put secret values in commands or documentation.
+
+`node scripts/verify-wedding-api.cjs` checks privacy, persistence and revocation against local Wrangler; `API_URL=...` targets a deployed Worker and cleans its own temporary records. `verify-wedding-journey.cjs` tests real browser submissions against local Wrangler. `verify-selected.cjs` checks layout, envelope flow, calendar, reduced motion and archive links.
+
+## Historical change log
+
+The notes below describe earlier iterations; the current behavior above supersedes older preview/animation descriptions.
 
 ## Assets
 

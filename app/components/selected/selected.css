@@ -979,7 +979,10 @@
   margin-bottom: 0;
 }
 
-/* A physical gatefold: two hinged paper covers expose the inner invitation. */
+/* The flap lifts, the paper slides out, and the paper fills the screen. */
+.sage-header {
+  justify-content: flex-end;
+}
 .unfold-stage {
   position: fixed;
   inset: 0;
@@ -987,17 +990,25 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: #4f6249e8;
+  background: #4f6249ee;
   perspective: 1400px;
-  animation: unfold-stage-fade 3s both;
+  animation: envelope-fade 3s both;
   touch-action: none;
 }
 .fold-scene {
   position: relative;
   width: min(66vw, 350px);
   height: min(57svh, 440px);
-  transform-style: preserve-3d;
-  animation: unfold-card-lift 3s cubic-bezier(0.4, 0, 0.2, 1) both;
+  perspective: 1000px;
+  animation: envelope-zoom 3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.fold-scene::before {
+  content: "";
+  position: absolute;
+  inset: 28% -7% -4%;
+  background: #77866e;
+  box-shadow: 0 22px 55px #15261270;
+  border-radius: 4px;
 }
 .fold-inside {
   position: absolute;
@@ -1010,15 +1021,16 @@
   padding: 22px;
   text-align: center;
   background: linear-gradient(
-    90deg,
-    #e6dfcb,
-    #fff9ec 12%,
-    #fff9ec 88%,
+    100deg,
+    #eee8d8,
+    #fff9ec 25%,
+    #fff9ec 85%,
     #e6dfcb
   );
   color: #3c533d;
-  box-shadow: 0 20px 55px #15261260;
   border: 1px solid #dbd4c1;
+  box-shadow: 0 8px 24px #15261230;
+  animation: letter-rise 3s both;
 }
 .fold-inside p {
   font-family: var(--font-condensed), sans-serif;
@@ -1043,103 +1055,108 @@
   font-family: var(--font-script), cursive;
   font-size: 28px;
 }
-.fold-cover {
+.envelope-pocket {
   position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  transform-style: preserve-3d;
+  inset: 28% -7% -4%;
+  background: linear-gradient(145deg, #a6b094, #829177 54%, #94a184);
+  clip-path: polygon(0 0, 50% 42%, 100% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 -2px 2px #31422c44);
+  animation: envelope-away 3s both;
 }
-.fold-cover-left {
-  left: 0;
-  transform-origin: left center;
-  animation: unfold-left 1.55s 0.2s cubic-bezier(0.4, 0, 0.15, 1) both;
-}
-.fold-cover-right {
-  right: 0;
-  transform-origin: right center;
-  animation: unfold-right 1.55s 0.3s cubic-bezier(0.4, 0, 0.15, 1) both;
-}
-.fold-front,
-.fold-back {
+.envelope-flap {
   position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  top: 28%;
+  left: -7%;
+  width: 114%;
+  height: 34%;
+  background: linear-gradient(170deg, #acb79a, #8e9b80);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  animation: flap-open 3s both;
 }
-.fold-front {
-  overflow: hidden;
-  background: #819076;
-  border: 1px solid #b6bda050;
-}
-.fold-cover-left .fold-front {
-  box-shadow: inset -8px 0 15px #34492d22;
-}
-.fold-cover-right .fold-front {
-  box-shadow: inset 6px 0 15px #edf0d41a;
-}
-.fold-back {
-  background: linear-gradient(90deg, #d9d1bd, #f8f3e6 25%, #eee7d5);
-  transform: rotateY(180deg);
-  border: 1px solid #d2cab7;
-}
-.fold-print {
+.envelope-seal {
   position: absolute;
-  top: 0;
-  width: 200%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px;
-  align-items: center;
+  top: 52%;
+  left: calc(50% -23px);
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #d0bd83;
+  color: #5b634b;
+  border: 3px double #b5a16c;
+  box-shadow: 0 3px 7px #27351d44;
+  font-family: var(--font-serif), serif;
+  animation: seal-away 3s both;
 }
-.fold-cover-right .fold-print {
-  left: -100%;
-}
-.fold-print .closing-wordmark {
-  width: 94%;
-  height: auto;
-  margin: 0;
-  left: auto;
-  transform: none;
-}
-.fold-print p {
-  font-family: var(--font-condensed), sans-serif;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-@keyframes unfold-left {
-  from {
-    transform: rotateY(0);
+@keyframes flap-open {
+  0%,
+  10% {
+    transform: rotateX(0);
+    opacity: 1;
   }
-  to {
-    transform: rotateY(-158deg);
+  32%,
+  65% {
+    transform: rotateX(175deg);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: rotateX(175deg);
+    opacity: 0;
   }
 }
-@keyframes unfold-right {
-  from {
-    transform: rotateY(0);
+@keyframes seal-away {
+  0%,
+  12% {
+    opacity: 1;
+    transform: scale(1);
   }
-  to {
-    transform: rotateY(158deg);
+  25%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(15px);
   }
 }
-@keyframes unfold-card-lift {
+@keyframes letter-rise {
+  0%,
+  28% {
+    transform: translateY(30%) scale(0.88);
+    clip-path: inset(0 0 25% 0);
+  }
+  60%,
+  100% {
+    transform: translateY(0) scale(1);
+    clip-path: inset(0);
+  }
+}
+@keyframes envelope-away {
+  0%,
+  36% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  65%,
+  100% {
+    transform: translateY(75%);
+    opacity: 0;
+  }
+}
+@keyframes envelope-zoom {
   0% {
-    transform: translateY(30px) rotateX(10deg) scale(0.92);
+    transform: translateY(20px) rotateX(9deg) scale(0.85);
   }
-  18%,
-  58% {
+  20%,
+  60% {
     transform: translateY(0) rotateX(0) scale(1);
   }
-  90%,
+  91%,
   100% {
-    transform: translateY(0) rotateX(0) scale(var(--unfold-zoom));
+    transform: scale(var(--unfold-zoom));
   }
 }
-@keyframes unfold-stage-fade {
+@keyframes envelope-fade {
   0% {
     opacity: 0;
   }
@@ -1153,4 +1170,112 @@
 }
 .sage-open:disabled {
   cursor: wait;
+}
+.selected-world .photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.selected-world .photo-grid > div {
+  position: relative;
+  min-width: 0;
+}
+.selected-world .photo-grid img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.selected-world .shared-gallery button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.selected-world .remove-photo {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff9ec;
+  color: #3c533d;
+}
+.selected-world .photo-send {
+  width: 100%;
+  margin: 12px 0;
+}
+.selected-world button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.selected-world .photo-public-note {
+  font-family: var(--font-condensed), sans-serif;
+  font-size: 16px;
+  margin: 12px 0;
+}
+.selected-world .photo-drop {
+  position: relative;
+}
+.selected-world .photo-drop input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.selected-world .photo-dialog {
+  width: min(95vw, 1000px);
+  max-height: 95svh;
+  padding: 12px;
+  background: #fff9ec;
+  border: 0;
+}
+.selected-world .photo-dialog::backdrop {
+  background: #172214dd;
+}
+.selected-world .photo-dialog img {
+  max-height: 82svh;
+  width: 100%;
+  object-fit: contain;
+}
+.selected-world .photo-dialog button {
+  display: block;
+  margin: 0 0 12px auto;
+  min-height: 44px;
+}
+@media (min-width: 700px) {
+  .selected-world .photo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Keep the open flap behind the letter as it leaves the pocket. */
+.fold-inside {
+  z-index: 1;
+}
+.envelope-pocket {
+  z-index: 2;
+}
+.envelope-seal {
+  z-index: 4;
+}
+.envelope-flap {
+  animation:
+    flap-open 3s both,
+    flap-layer 3s step-end both;
+}
+@keyframes flap-layer {
+  0% {
+    z-index: 3;
+  }
+  30%,
+  100% {
+    z-index: 0;
+  }
 }

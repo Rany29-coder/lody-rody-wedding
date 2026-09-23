@@ -42,3 +42,8 @@ next-env.d.ts
 
 # Local browser verification artifacts
 /output/
+
+# Wedding backend local state and credentials
+.wrangler/
+.dev.vars
+worker/.dev.vars

@@ -9,7 +9,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - `/designs/` is the archived ten-design couple review page. Ten statically generated routes live at `/designs/[slug]/`; catalog and scoped CSS are in `app/components/designs/`.
 - Read `docs/DESIGN_COLLECTION.md` for design interactions, generated-art prompts, limitations, and verification commands.
 - All new concepts use ivory/sage/dusty rose from the user's reference. Keep Rody first, November 7, 2026, KDEC in Cairo. The new selected invitation confirms 6:30 PM Cairo time; old concept routes are historical previews.
-- RSVP is intentionally absent. Guestbook and photo interactions are explicitly labeled local design previews. Do not imply shared persistence before a backend is implemented.
+- RSVP is intentionally absent. Archived guestbook and photo interactions are local previews. The selected invitation has a real Cloudflare backend; see below.
 - `npm run verify:designs` verifies all concepts; `GITHUB_PAGES=true npm run build` tests the deployed base path.
 
 - Couple review: `ReviewCollection.tsx` and `useReviewStore.ts` provide browser-local favorites/notes and explicit copy-to-chat feedback. No messages are automatically sent. The collection is Step 01: choose the opening/feel before developing the next stages.
@@ -33,3 +33,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Unfold uses a 3-second two-panel 3D paper transition before revealing/focusing details; reduced-motion skips it. Tests must wait for details visibility instead of a fixed short sleep.
 
 - Continuous opening refinement: after the panels open, the card zooms to fill the viewport. Details are positioned underneath at 1.8s while the cover is opaque; the final crossfade reveals the page without a separate scroll/cut. Zoom adapts to viewport size. Verified sequence and full selected-route checks.
+
+## Current selected implementation — 2026-09-23
+
+Supersedes earlier selected-preview notes: real private wishes (Worker/D1, authenticated `/couple/`), public R2 photo gallery after Send, no header logo, explicit intro line breaks. Envelope flap + sliding invitation replaces gatefold; zoom/crossfade and reduced motion remain. See docs/SELECTED_INVITATION.md for deployment, security and verification. Never commit credentials under output/ or worker/.dev.vars. Backend resources are independent of Ekklesia.

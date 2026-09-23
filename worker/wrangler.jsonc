@@ -1,0 +1,29 @@
+{
+  "name": "rody-lody-wedding-api",
+  "main": "index.js",
+  "compatibility_date": "2026-08-18",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGIN": "https://rany29-coder.github.io"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "rody-lody-wedding",
+      "database_id": "dc4ada15-6b74-40f3-b65a-b51f40e48e1a"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PHOTOS",
+      "bucket_name": "rody-lody-wedding-photos"
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 0.01
+    }
+  }
+}

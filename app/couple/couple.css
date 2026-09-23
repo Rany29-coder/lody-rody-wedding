@@ -1,0 +1,71 @@
+.couple-inbox {
+  min-height: 100svh;
+  background: #f8f3e6;
+  color: #354b36;
+  padding: 60px max(24px, calc((100% - 720px) / 2));
+  font-family: Georgia, serif;
+}
+.couple-inbox h1 {
+  font-size: 48px;
+  margin: 12px 0;
+}
+.couple-inbox h2 {
+  font-size: 25px;
+  margin-bottom: 28px;
+}
+.inbox-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+.couple-inbox label {
+  display: block;
+  margin: 24px 0;
+}
+.couple-inbox input {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #9ca58d;
+  border-radius: 4px;
+  margin-top: 8px;
+  font-size: 18px;
+}
+.couple-inbox button {
+  background: #63775a;
+  color: white;
+  padding: 12px 22px;
+  min-height: 44px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.couple-inbox button:disabled {
+  opacity: 0.6;
+}
+.inbox-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.private-wishes article {
+  padding: 24px 0;
+  border-bottom: 1px solid #aab49e;
+}
+.private-wishes h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.private-wishes p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+.private-wishes time {
+  display: block;
+  font-size: 12px;
+  color: #677360;
+  margin-top: 12px;
+}
+.couple-inbox [role="status"] {
+  margin-top: 20px;
+}
