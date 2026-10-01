@@ -493,10 +493,6 @@ export default function SelectedInvitation() {
                 I Corinthians 13:13
               </figcaption>
             </figure>
-            <p className="blessing-note">
-              <span>It would mean the world to celebrate</span>
-              <span>this beginning with you.</span>
-            </p>
           </section>
           <section id="celebration" className="sage-celebration">
             <h2>

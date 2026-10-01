@@ -71,3 +71,5 @@ Unfold now runs a 3-second gatefold transition: two independently hinged covers,
 ## October 1, 2026 — private photos and scripture
 
 Selected invitation scripture is now “And now abide faith, hope, love, these three; but the greatest of these is love.” — I Corinthians 13:13. Photos are submitted privately, like wishes. No public gallery is fetched or rendered. `/couple/` displays paginated private photos after login, fetching images with the existing Bearer session into revocable local blob URLs. Private image responses use `private, no-store`. Old public GET `/photos` and `/photo/:id` routes are removed, including access to existing photos; uploads remain available. R2 public dev URL is disabled and no custom domains are attached. Existing password, messages and uploaded photos are preserved. Earlier public-gallery notes are historical.
+
+- October 1 spacing refinement: removed the marked “It would mean the world…” blessing note; reduced details section padding, ornament/title gaps and countdown spacing, with compact mobile values. Scripture and privacy behavior unchanged.
