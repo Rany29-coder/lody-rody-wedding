@@ -1,11 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import {
-  weddingRequest,
-  type GalleryPhoto,
-  type GalleryResponse,
-} from "../../lib/wedding-api";
+import { weddingRequest } from "../../lib/wedding-api";
 type Pending = { id: string; name: string; blob: Blob; url: string };
 async function preparePhoto(file: File): Promise<Blob> {
   if (
@@ -40,57 +36,18 @@ async function preparePhoto(file: File): Promise<Blob> {
 export default function WeddingGuests() {
   const [sendingWish, setSendingWish] = useState(false),
     [wishStatus, setWishStatus] = useState("");
-  const [gallery, setGallery] = useState<GalleryPhoto[]>([]),
-    [next, setNext] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true),
-    [galleryError, setGalleryError] = useState("");
   const [pending, setPending] = useState<Pending[]>([]),
     [preparing, setPreparing] = useState(false),
     [sendingPhotos, setSendingPhotos] = useState(false),
     [photoStatus, setPhotoStatus] = useState("");
-  const [active, setActive] = useState<GalleryPhoto | null>(null);
-  const dialog = useRef<HTMLDialogElement>(null),
-    urls = useRef(new Set<string>()),
+  const urls = useRef(new Set<string>()),
     wishAttempt = useRef({ text: "", id: "" });
   useEffect(() => {
-    const abort = new AbortController(),
-      live = urls.current;
-    weddingRequest<GalleryResponse>("/photos", { signal: abort.signal })
-      .then((data) => {
-        setGallery(data.photos);
-        setNext(data.next);
-      })
-      .catch((error) => {
-        if (!abort.signal.aborted) setGalleryError(error.message);
-      })
-      .finally(() => {
-        if (!abort.signal.aborted) setLoading(false);
-      });
+    const live = urls.current;
     return () => {
-      abort.abort();
       live.forEach((url) => URL.revokeObjectURL(url));
     };
   }, []);
-  async function loadMore() {
-    setLoading(true);
-    setGalleryError("");
-    try {
-      const data = await weddingRequest<GalleryResponse>(
-        `/photos${next ? `?before=${encodeURIComponent(next)}` : ""}`,
-      );
-      setGallery((old) => [
-        ...old,
-        ...data.photos.filter((p) => !old.some((o) => o.id === p.id)),
-      ]);
-      setNext(data.next);
-    } catch (error) {
-      setGalleryError(
-        error instanceof Error ? error.message : "Unable to load photos.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
   async function sendWish(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (sendingWish) return;
@@ -171,16 +128,15 @@ export default function WeddingGuests() {
         const data = new FormData();
         data.append("id", photo.id);
         data.append("photo", photo.blob, "wedding.jpg");
-        const result = await weddingRequest<GalleryPhoto>("/photos", {
+        await weddingRequest("/photos", {
           method: "POST",
           body: data,
         });
-        setGallery((old) => [result, ...old.filter((p) => p.id !== result.id)]);
         remove(photo.id);
         sent++;
       }
       setPhotoStatus(
-        `${sent === 1 ? "Your photo is" : "Your photos are"} now in the gallery. Thank you!`,
+        `${sent === 1 ? "Your photo is" : "Your photos are"} sent privately to Rody & Lody. Thank you!`,
       );
     } catch (error) {
       setPhotoStatus(
@@ -254,7 +210,7 @@ export default function WeddingGuests() {
           />
         </label>
         <p className="photo-public-note">
-          Photos you send will appear in this shared gallery.
+          Only Rody & Lody can view the photos you send.
         </p>
         {preparing && <p role="status">Preparing your photographs…</p>}
         <div className="photo-grid pending-photos">
@@ -286,71 +242,6 @@ export default function WeddingGuests() {
           {sendingPhotos ? "Sending…" : "Send"}
         </button>
         <p role="status">{photoStatus}</p>
-        {loading && <p role="status">Loading photographs…</p>}
-        {galleryError && (
-          <p role="alert">
-            {galleryError}{" "}
-            <button className="secondary-action" onClick={loadMore}>
-              Try again
-            </button>
-          </p>
-        )}
-        <div className="photo-grid shared-gallery">
-          {gallery.map((photo) => (
-            <div key={photo.id}>
-              <button
-                onClick={() => {
-                  setActive(photo);
-                  dialog.current?.showModal();
-                }}
-                aria-label="View wedding photograph"
-              >
-                <Image
-                  src={photo.url}
-                  width={500}
-                  height={500}
-                  alt="A wedding memory"
-                  unoptimized
-                />
-              </button>
-            </div>
-          ))}
-        </div>
-        {!loading && !galleryError && !gallery.length && (
-          <p className="empty-wish">Be the first to share a little moment.</p>
-        )}
-        {next && (
-          <button
-            className="secondary-action"
-            disabled={loading}
-            onClick={loadMore}
-          >
-            More photographs
-          </button>
-        )}
-        <dialog
-          className="photo-dialog"
-          ref={dialog}
-          onClick={(event) => {
-            if (event.target === event.currentTarget) dialog.current?.close();
-          }}
-        >
-          <button
-            onClick={() => dialog.current?.close()}
-            aria-label="Close photo"
-          >
-            Close ×
-          </button>
-          {active && (
-            <Image
-              src={active.url}
-              width={1600}
-              height={1600}
-              alt="A wedding memory"
-              unoptimized
-            />
-          )}
-        </dialog>
       </section>
     </>
   );

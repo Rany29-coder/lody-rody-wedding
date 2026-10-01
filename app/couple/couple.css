@@ -69,3 +69,56 @@
 .couple-inbox [role="status"] {
   margin-top: 20px;
 }
+
+.private-photos {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid #81907655;
+}
+.private-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.private-photo {
+  min-width: 0;
+  min-height: 160px;
+}
+.couple-inbox .private-photo-open {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  width: 100%;
+}
+.private-photo-open img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.private-photo a {
+  display: inline-block;
+  padding: 12px 0;
+}
+.private-photo dialog {
+  width: min(90vw, 1000px);
+  max-height: 92svh;
+  padding: 12px;
+  background: #fff9ec;
+  border: 0;
+}
+.private-photo dialog::backdrop {
+  background: #172214dd;
+}
+.private-photo dialog img {
+  width: 100%;
+  height: auto;
+  max-height: 78svh;
+  object-fit: contain;
+}
+@media (min-width: 700px) {
+  .private-photo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

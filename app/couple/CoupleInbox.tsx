@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { weddingRequest } from "../lib/wedding-api";
 import "./couple.css";
+import PrivatePhotos from "./PrivatePhotos";
 type Wish = { id: string; name: string; message: string; created_at: string };
 export default function CoupleInbox() {
   const [token, setToken] = useState(""),
@@ -74,10 +75,12 @@ export default function CoupleInbox() {
     <main className="couple-inbox">
       <p className="inbox-eyebrow">Just for the two of you</p>
       <h1>Rody + Lody</h1>
-      <h2>Your private messages</h2>
+      <h2>Your private messages & photos</h2>
       {!token ? (
         <form onSubmit={login}>
-          <p>Sign in to read the wishes your guests have sent.</p>
+          <p>
+            Sign in to see the wishes and photographs your guests have sent.
+          </p>
           <label>
             Password
             <input
@@ -100,6 +103,7 @@ export default function CoupleInbox() {
           {!messages.length && (
             <p>No messages yet. Your guests’ wishes will appear here.</p>
           )}
+          <h2>Your messages</h2>
           <div className="private-wishes">
             {messages.map((wish) => (
               <article key={wish.id}>
@@ -116,6 +120,7 @@ export default function CoupleInbox() {
               Earlier messages
             </button>
           )}
+          <PrivatePhotos token={token} />
         </>
       )}
       <p role="status">{status}</p>

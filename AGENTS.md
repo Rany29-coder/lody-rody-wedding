@@ -37,3 +37,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Current selected implementation — 2026-09-23
 
 Supersedes earlier selected-preview notes: real private wishes (Worker/D1, authenticated `/couple/`), public R2 photo gallery after Send, no header logo, explicit intro line breaks. Envelope flap + sliding invitation replaces gatefold; zoom/crossfade and reduced motion remain. See docs/SELECTED_INVITATION.md for deployment, security and verification. Never commit credentials under output/ or worker/.dev.vars. Backend resources are independent of Ekklesia.
+
+## October 1, 2026 — private photos and scripture
+
+Selected invitation scripture is now “And now abide faith, hope, love, these three; but the greatest of these is love.” — I Corinthians 13:13. Photos are submitted privately, like wishes. No public gallery is fetched or rendered. `/couple/` displays paginated private photos after login, fetching images with the existing Bearer session into revocable local blob URLs. Private image responses use `private, no-store`. Old public GET `/photos` and `/photo/:id` routes are removed, including access to existing photos; uploads remain available. R2 public dev URL is disabled and no custom domains are attached. Existing password, messages and uploaded photos are preserved. Earlier public-gallery notes are historical.

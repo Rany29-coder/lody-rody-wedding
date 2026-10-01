@@ -64,10 +64,16 @@ const root = process.env.API_URL || "http://127.0.0.1:8787";
     );
     const upload = await request("/photos", { method: "POST", body: form });
     assert.equal(upload.status, 201, await upload.text());
-    const gallery = await (await request("/photos")).json();
+    const gallery = await (await request("/admin/photos", { headers })).json();
     assert(gallery.photos.some((p) => p.id === photoId));
     assert(!JSON.stringify(gallery).includes("Private verification"));
-    assert.equal((await request("/photo/" + photoId)).status, 200);
+    assert.equal((await request("/photos")).status, 404);
+    assert.equal((await request("/photo/" + photoId)).status, 404);
+    assert.equal((await request("/admin/photos")).status, 401);
+    assert.equal((await request("/admin/photo/" + photoId)).status, 401);
+    const image = await request("/admin/photo/" + photoId, { headers });
+    assert.equal(image.status, 200);
+    assert.equal(image.headers.get("Cache-Control"), "private, no-store");
     assert.equal(
       (
         await request("/admin/messages", {
@@ -95,7 +101,7 @@ const root = process.env.API_URL || "http://127.0.0.1:8787";
   }
   assert.equal((await request("/admin/messages", { headers })).status, 401);
   console.log(
-    "PASS: private message storage, authenticated reads, idempotency, public photo persistence, origin protection and session revocation; test data removed.",
+    "PASS: private message storage, authenticated reads, idempotency, private photo persistence, origin protection and session revocation; test data removed.",
   );
 })().catch((e) => {
   console.error(e);

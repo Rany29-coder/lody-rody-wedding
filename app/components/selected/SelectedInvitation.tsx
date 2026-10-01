@@ -485,14 +485,12 @@ export default function SelectedInvitation() {
             </h2>
             <figure className="wedding-scripture">
               <blockquote>
-                “So they are no longer two, but one.
+                “And now abide faith, hope, love, these three;
                 <br />
-                Therefore what God has joined together,
-                <br />
-                let man not separate.”
+                but the greatest of these is love.”
               </blockquote>
               <figcaption className="eyebrow verse-reference">
-                Matthew 19:6
+                I Corinthians 13:13
               </figcaption>
             </figure>
             <p className="blessing-note">

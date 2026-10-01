@@ -106,6 +106,38 @@ async function route(request, env, ctx) {
   if (path.startsWith("/admin/")) {
     if (!(await authenticated(request, env)))
       return json({ error: "Please sign in." }, 401);
+    if (path === "/admin/photos" && request.method === "GET") {
+      const [before, beforeId] = (
+        url.searchParams.get("before") || "9999|~"
+      ).split("|");
+      const { results } = await env.DB.prepare(
+        "SELECT id,created_at FROM photos WHERE (created_at,id)<(?,?) ORDER BY created_at DESC,id DESC LIMIT 60",
+      )
+        .bind(before, beforeId || "~")
+        .all();
+      return json({
+        photos: results.map((row) => ({
+          id: row.id,
+          url: `${url.origin}/admin/photo/${row.id}`,
+        })),
+        next:
+          results.length === 60
+            ? `${results.at(-1).created_at}|${results.at(-1).id}`
+            : null,
+      });
+    }
+    const photo = path.match(/^\/admin\/photo\/([a-f0-9-]+)$/);
+    if (photo && request.method === "GET" && uuid.test(photo[1])) {
+      const stored = await env.PHOTOS.get(`${photo[1]}.jpg`);
+      if (!stored) return json({ error: "Not found" }, 404);
+      return new Response(stored.body, {
+        headers: {
+          "Content-Type": "image/jpeg",
+          "Cache-Control": "private, no-store",
+          "X-Content-Type-Options": "nosniff",
+        },
+      });
+    }
     if (path === "/admin/logout" && request.method === "POST") {
       await env.DB.prepare("DELETE FROM sessions WHERE token_hash=?")
         .bind(await hash(request.headers.get("Authorization").slice(7)))
@@ -182,26 +214,6 @@ async function route(request, env, ctx) {
       .run();
     return json({ ok: true }, 201);
   }
-  if (path === "/photos" && request.method === "GET") {
-    const [before, beforeId] = (
-      url.searchParams.get("before") || "9999|~"
-    ).split("|");
-    const { results } = await env.DB.prepare(
-      "SELECT id,created_at FROM photos WHERE (created_at,id)<(?,?) ORDER BY created_at DESC,id DESC LIMIT 60",
-    )
-      .bind(before, beforeId || "~")
-      .all();
-    return json({
-      photos: results.map((row) => ({
-        id: row.id,
-        url: `${url.origin}/photo/${row.id}`,
-      })),
-      next:
-        results.length === 60
-          ? `${results.at(-1).created_at}|${results.at(-1).id}`
-          : null,
-    });
-  }
   if (path === "/photos" && request.method === "POST") {
     if (!(await rate(env, request, "photos", 60, 3600)))
       return json({ error: "Please wait before sending more photos." }, 429);
@@ -242,26 +254,17 @@ async function route(request, env, ctx) {
         throw error;
       }
     }
-    return json({ ok: true, id, url: `${url.origin}/photo/${id}` }, 201);
-  }
-  const photo = path.match(/^\/photo\/([a-f0-9-]+)$/);
-  if (photo && request.method === "GET" && uuid.test(photo[1])) {
-    const stored = await env.PHOTOS.get(`${photo[1]}.jpg`);
-    if (!stored) return json({ error: "Not found" }, 404);
-    return new Response(stored.body, {
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Cache-Control": "public, max-age=300",
-        "X-Content-Type-Options": "nosniff",
-      },
-    });
+    return json({ ok: true, id }, 201);
   }
   return json({ error: "Not found" }, 404);
 }
 const worker = {
   async fetch(request, env, ctx) {
     const requestUrl = new URL(request.url);
-    if (requestUrl.protocol === "http:" && !["127.0.0.1", "localhost"].includes(requestUrl.hostname)) {
+    if (
+      requestUrl.protocol === "http:" &&
+      !["127.0.0.1", "localhost"].includes(requestUrl.hostname)
+    ) {
       requestUrl.protocol = "https:";
       return Response.redirect(requestUrl.toString(), 308);
     }
