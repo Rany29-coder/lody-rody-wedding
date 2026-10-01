@@ -4,7 +4,7 @@
   "compatibility_date": "2026-08-18",
   "workers_dev": true,
   "vars": {
-    "ALLOWED_ORIGIN": "https://rany29-coder.github.io"
+    "ALLOWED_ORIGIN": "https://rany29-coder.github.io,https://rodyandlody.pages.dev,https://rl-day.pages.dev"
   },
   "d1_databases": [
     {

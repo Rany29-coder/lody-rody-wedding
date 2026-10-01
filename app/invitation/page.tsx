@@ -25,7 +25,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://rany29-coder.github.io/lody-rody-wedding/invitation/invitation-share-630.jpg",
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://rany29-coder.github.io/lody-rody-wedding"}/invitation/invitation-share-630.jpg`,
         width: 600,
         height: 844,
         alt: "Rody and Lody — sage and ivory wedding invitation",

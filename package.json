@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "verify:designs": "node scripts/verify-designs.cjs",
-    "verify:selected": "node scripts/verify-selected.cjs"
+    "verify:selected": "node scripts/verify-selected.cjs",
+    "deploy:cloudflare": "node scripts/deploy-cloudflare.mjs"
   },
   "dependencies": {
     "motion": "^12.40.0",

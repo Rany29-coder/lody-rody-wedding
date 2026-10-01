@@ -269,13 +269,15 @@ const worker = {
       return Response.redirect(requestUrl.toString(), 308);
     }
     const origin = request.headers.get("Origin");
-    const allowed = origin === env.ALLOWED_ORIGIN;
+    const origins = env.ALLOWED_ORIGIN.split(",").map((value) => value.trim());
+    const allowed = origins.includes(origin);
+    const corsOrigin = allowed ? origin : origins[0];
     if (origin && !allowed) return json({ error: "Origin not allowed" }, 403);
     if (request.method === "OPTIONS")
       return new Response(null, {
         status: 204,
         headers: {
-          "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN,
+          "Access-Control-Allow-Origin": corsOrigin,
           "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type,Authorization",
           "Access-Control-Max-Age": "600",
@@ -305,7 +307,7 @@ const worker = {
         invalid ? 400 : 500,
       );
     }
-    response.headers.set("Access-Control-Allow-Origin", env.ALLOWED_ORIGIN);
+    response.headers.set("Access-Control-Allow-Origin", corsOrigin);
     response.headers.set("Vary", "Origin");
     response.headers.set("X-Content-Type-Options", "nosniff");
     response.headers.set("Referrer-Policy", "no-referrer");
